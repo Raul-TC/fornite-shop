@@ -1,20 +1,65 @@
 import Head from 'next/head'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { KEY_LOGIN } from '../KEYS'
 import Header from '../components/Header'
 import Modal from '../components/Modal'
-import Image from 'next/image'
 import ThemeContext from '../context/Theme'
+import logo from "../assets/shop-pngrepo-com.png"
+import Image from 'next/image'
 
-export default function Home({ arr }) {
+export default function Home() {
   const { DarkTheme } = useContext(ThemeContext)
-
+  const [section, setSection] = useState({})
   const [modal, setModal] = useState(false);
   const [image, setImage] = useState("");
 
-  if (!arr) {
-    return
-  }
+  useEffect(() => {
+
+    fetch(`${`https://fortniteapi.io/v2/shop?lang=es`}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': KEY_LOGIN
+      }
+    }).then(res => res.json())
+      .then(el => {
+        let dd = {}
+        const categories = [...new Set(el.shop.map((section) => section.section.name))]
+        categories.forEach(el => {
+          el === null || el === "" ? dd["Otros"] = [] : dd[el] = [];
+        })
+
+        el.shop.map(item => {
+          if (dd[item.section.name] === "" || dd[item.section.name] === undefined || dd[item.section.name] === null) {
+            dd["Otros"].push({
+              itemName: item.displayName,
+              price: item.price.finalPrice,
+              images: item.granted[0].images.full_background,
+              loteImage: item.displayAssets,
+              description: item.displayDescription
+
+            })
+          } else {
+            dd[item.section.name].push({
+              itemName: item.displayName,
+              price: item.price.finalPrice,
+              images: item.granted[0].images.full_background,
+              loteImage: item.displayAssets,
+              description: item.displayDescription
+
+            })
+          }
+        })
+        let arr = []
+
+        Object.entries(dd).forEach(([key, value]) => {
+          arr.push({ section: key, data: value })
+        });
+
+        setSection(arr)
+      })
+
+  }, [])
+
   return (
     <>
       <Head>
@@ -37,17 +82,17 @@ export default function Home({ arr }) {
         {modal && <Modal img={image} setModal={setModal} />}
         <div className='grid grid-cols-1 max-w-[90%] m-auto'>
 
-          {arr && arr.map((el, index) =>
+          {section.length > 0 && section.map((el, index) =>
             <div key={`${index}_${el.section}`} className='border-b-2 border-x-cyan-700 '>
               {/* <h2>{el.}</h2> */}
               <h1 className='text-2xl text-center font-bold mt-4 mb-4'>{el.section}</h1>
               <div className="text-center mb-4 grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 min-h-[190px] ">
                 {el.data.length > 0 && el.data.map((child, index) =>
                   <div key={`${index}_${child.itemName}`} className='mb-4 flex flex-col justify-between items-center w-full h-auto'>
-                    {child.itemName.includes("Lote" || "LOTE") ? <Image onClick={() => {
+                    {child.itemName.includes("Lote" || "LOTE") ? <Image width={250} height={250} onClick={() => {
                       setModal(!modal)
                       setImage(child.loteImage[0].full_background)
-                    }} className='rounded-lg col-span-2 ' src={child.loteImage[0].full_background} alt={`image_${child.itemName}`} /> : <Image onClick={() => {
+                    }} className='rounded-lg col-span-2 ' src={child.loteImage[0].full_background} alt={`image_${child.itemName}`} /> : <Image width={250} height={250} onClick={() => {
                       setModal(!modal)
                       setImage(child.loteImage[0].full_background)
                     }} className='rounded-lg' src={child.images} alt={`image_${child.name}`} />}
@@ -75,51 +120,51 @@ export default function Home({ arr }) {
   )
 }
 
-export async function getInitialProps() {
+// export async function getStaticProps() {
 
-  const fetchShop = await fetch(`${`https://fortniteapi.io/v2/shop?lang=es`}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': KEY_LOGIN
-    }
-  })
+//   const fetchShop = await fetch(`${`https://fortniteapi.io/v2/shop?lang=es`}`, {
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'Authorization': KEY_LOGIN
+//     }
+//   })
 
-  const data = await fetchShop.json()
+//   const data = await fetchShop.json()
 
-  let dd = {}
-  const categories = [...new Set(data.shop.map((section) => section.section.name))]
-  categories.forEach(el => {
-    el === null || el === "" ? dd["Otros"] = [] : dd[el] = [];
-  })
+//   let dd = {}
+//   const categories = [...new Set(await data.shop.map((section) => section.section.name))]
+//   categories.forEach(el => {
+//     el === null || el === "" ? dd["Otros"] = [] : dd[el] = [];
+//   })
 
-  data.shop.map(item => {
-    if (dd[item.section.name] === "" || dd[item.section.name] === undefined || dd[item.section.name] === null) {
-      dd["Otros"].push({
-        itemName: item.displayName,
-        price: item.price.finalPrice,
-        images: item.granted[0].images.full_background,
-        loteImage: item.displayAssets,
-        description: item.displayDescription
+//   await data.shop.map(item => {
+//     if (dd[item.section.name] === "" || dd[item.section.name] === undefined || dd[item.section.name] === null) {
+//       dd["Otros"].push({
+//         itemName: item.displayName,
+//         price: item.price.finalPrice,
+//         images: item.granted[0].images.full_background,
+//         loteImage: item.displayAssets,
+//         description: item.displayDescription
 
-      })
-    } else {
-      dd[item.section.name].push({
-        itemName: item.displayName,
-        price: item.price.finalPrice,
-        images: item.granted[0].images.full_background,
-        loteImage: item.displayAssets,
-        description: item.displayDescription
+//       })
+//     } else {
+//       dd[item.section.name].push({
+//         itemName: item.displayName,
+//         price: item.price.finalPrice,
+//         images: item.granted[0].images.full_background,
+//         loteImage: item.displayAssets,
+//         description: item.displayDescription
 
-      })
-    }
-  })
-  let arr = []
+//       })
+//     }
+//   })
+//   let arr = []
 
-  Object.entries(dd).forEach(([key, value]) => {
-    arr.push({ section: key, data: value })
-  });
+//   Object.entries(dd).forEach(([key, value]) => {
+//     arr.push({ section: key, data: value })
+//   });
 
-  return {
-    props: { arr }
-  }
-}
+//   return {
+//     props: { arr }
+//   }
+// }
