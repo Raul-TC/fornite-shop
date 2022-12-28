@@ -1,17 +1,17 @@
 import Head from 'next/head'
 import { useContext, useState } from 'react'
 import { KEY_LOGIN } from '../KEYS'
-import Header from './components/Header'
-import Modal from './components/Modal'
-import ThemeContext from './context/Theme'
-import logo from "./assets/shop-pngrepo-com.png"
+import Header from '../components/Header'
+import Modal from '../components/Modal'
+import ThemeContext from '../context/Theme'
+import logo from "../assets/shop-pngrepo-com.png"
+import Image from 'next/image'
 
 export default function Home({ arr }) {
   const { DarkTheme } = useContext(ThemeContext)
 
   const [modal, setModal] = useState(false);
   const [image, setImage] = useState("");
-  console.info(arr)
   return (
     <>
       <Head>
@@ -41,16 +41,13 @@ export default function Home({ arr }) {
               <div className="text-center mb-4 grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 min-h-[190px] ">
                 {el.data.length > 0 && el.data.map((child, index) =>
                   <div key={`${index}_${child.itemName}`} className='mb-4 flex flex-col justify-between items-center w-full h-auto'>
-                    {child.itemName.includes("Lote" || "LOTE") ? <img onClick={() => {
+                    {child.itemName.includes("Lote" || "LOTE") ? <Image onClick={() => {
                       setModal(!modal)
                       setImage(child.loteImage[0].full_background)
-                    }} className='rounded-lg col-span-2 ' src={child.loteImage[0].full_background} alt={`image_${child.itemName}`} /> : <img onClick={() => {
+                    }} className='rounded-lg col-span-2 ' src={child.loteImage[0].full_background} alt={`image_${child.itemName}`} /> : <Image onClick={() => {
                       setModal(!modal)
                       setImage(child.loteImage[0].full_background)
                     }} className='rounded-lg' src={child.images} alt={`image_${child.name}`} />}
-                    {/* <img className='rounded-lg' src={child.images} alt={`image_${child.name}`} /> */}
-                    {/* <p className='text-xl font-bold  text-center  mt-2 mb-2'>{child.itemName}</p> */}
-                    {/* <p className='text-lg font-bold  text-center  mt-2 '>{child.price} Pavos</p> */}
                   </div>
                 )}
               </div>
@@ -87,12 +84,12 @@ export async function getServerSideProps(context) {
   const data = await fetchShop.json()
 
   let dd = {}
-  const categories = [...new Set(data.shop.map((section) => section.section.name))]
+  const categories = [...new Set(await data.shop.map((section) => section.section.name))]
   categories.forEach(el => {
     el === null || el === "" ? dd["Otros"] = [] : dd[el] = [];
   })
 
-  data.shop.map(item => {
+  await data.shop.map(item => {
     if (dd[item.section.name] === "" || dd[item.section.name] === undefined || dd[item.section.name] === null) {
       dd["Otros"].push({
         itemName: item.displayName,
@@ -120,6 +117,6 @@ export async function getServerSideProps(context) {
   });
 
   return {
-    props: { arr }, // will be passed to the page component as props
+    props: { arr }
   }
 }

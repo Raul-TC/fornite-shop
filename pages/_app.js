@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import { ThemeProvider } from './context/Theme'
+import { ThemeProvider } from '../context/Theme'
 
 export default function App({ Component, pageProps }) {
   return (
