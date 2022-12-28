@@ -3,15 +3,18 @@ import { useContext, useState } from 'react'
 import { KEY_LOGIN } from '../KEYS'
 import Header from '../components/Header'
 import Modal from '../components/Modal'
-import ThemeContext from '../context/Theme'
-import logo from "../assets/shop-pngrepo-com.png"
 import Image from 'next/image'
+import ThemeContext from '../context/Theme'
 
 export default function Home({ arr }) {
   const { DarkTheme } = useContext(ThemeContext)
 
   const [modal, setModal] = useState(false);
   const [image, setImage] = useState("");
+
+  if (!arr) {
+    return
+  }
   return (
     <>
       <Head>
@@ -26,7 +29,7 @@ export default function Home({ arr }) {
         <meta property="og:title" content="Fornite Shop Today" />
         <meta property="og:type" content="article" />
         <meta property="og:description" content="Tienda Fornite de Hoy" />
-        <link rel="image" href={logo} />
+        <link rel="icon" href="./favicon.ico" />
       </Head>
       <main className={`${DarkTheme ? "bg-[#2c2c2c] text-white" : "bg-white text-[#2c2c2c]"} min-h-screen`}>
         <Header />
@@ -34,7 +37,7 @@ export default function Home({ arr }) {
         {modal && <Modal img={image} setModal={setModal} />}
         <div className='grid grid-cols-1 max-w-[90%] m-auto'>
 
-          {arr.map((el, index) =>
+          {arr && arr.map((el, index) =>
             <div key={`${index}_${el.section}`} className='border-b-2 border-x-cyan-700 '>
               {/* <h2>{el.}</h2> */}
               <h1 className='text-2xl text-center font-bold mt-4 mb-4'>{el.section}</h1>
@@ -72,7 +75,7 @@ export default function Home({ arr }) {
   )
 }
 
-export async function getServerSideProps(context) {
+export async function getInitialProps() {
 
   const fetchShop = await fetch(`${`https://fortniteapi.io/v2/shop?lang=es`}`, {
     headers: {
@@ -84,12 +87,12 @@ export async function getServerSideProps(context) {
   const data = await fetchShop.json()
 
   let dd = {}
-  const categories = [...new Set(await data.shop.map((section) => section.section.name))]
+  const categories = [...new Set(data.shop.map((section) => section.section.name))]
   categories.forEach(el => {
     el === null || el === "" ? dd["Otros"] = [] : dd[el] = [];
   })
 
-  await data.shop.map(item => {
+  data.shop.map(item => {
     if (dd[item.section.name] === "" || dd[item.section.name] === undefined || dd[item.section.name] === null) {
       dd["Otros"].push({
         itemName: item.displayName,
