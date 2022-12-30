@@ -26,12 +26,12 @@ export default function Home({ arr }) {
         let dd = {}
         const categories = [...new Set(el.shop.map((section) => section.section.name))]
         categories.forEach(el => {
-          el === null || el === "" ? dd["Otros"] = [] : dd[el] = [];
+          el === null || el === "" ? dd["Destacados"] = [] : dd[el] = [];
         })
 
         el.shop.map(item => {
           if (dd[item.section.name] === "" || dd[item.section.name] === undefined || dd[item.section.name] === null) {
-            dd["Otros"].push({
+            dd["Destacados"].push({
               itemName: item.displayName,
               price: item.price.finalPrice,
               images: item.granted[0].images.full_background,
@@ -96,17 +96,6 @@ export default function Home({ arr }) {
             </div>
           )}
 
-          {/* {shop && shop.map(el => {
-          return (
-            <div key={el.mainId} style={{ marginBottom: "2rem", margin: "0 auto 2rem" }}>
-              <img src={el.granted[0].images.background} alt="skin_fornite" />
-              <p>{el.displayName}</p>
-              <p>SECTION: {el.section.name}</p>
-              <p>PRICE: {el.price.finalPrice} VBuck's</p>
-            </div>
-            )
-        })
-        } */}
         </div>
       </main>
     </>
@@ -132,7 +121,7 @@ export async function getStaticProps() {
 
   await data.shop.map(item => {
     if (dd[item.section.name] === "" || dd[item.section.name] === undefined || dd[item.section.name] === null) {
-      dd["Otros"].push({
+      dd["Destacados"].push({
         itemName: item.displayName,
         price: item.price.finalPrice,
         images: item.granted[0].images.full_background,
