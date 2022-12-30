@@ -6,11 +6,12 @@ import Modal from '../components/Modal'
 import ThemeContext from '../context/Theme'
 import logo from "../assets/shop-pngrepo-com.png"
 import Image from 'next/image'
+import Card from '../components/Card'
 
 export default function Home({ arr }) {
   const { DarkTheme } = useContext(ThemeContext)
   const [section, setSection] = useState(arr)
-  const [modal, setModal] = useState(false);
+  // const [modal, setModal] = useState(false);
   const [image, setImage] = useState("");
 
   useEffect(() => {
@@ -78,22 +79,16 @@ export default function Home({ arr }) {
       <main className={`${DarkTheme ? "bg-[#2c2c2c] text-white" : "bg-white text-[#2c2c2c]"} min-h-screen`}>
         <Header />
 
-        {modal && <Modal img={image} setModal={setModal} />}
         <div className='grid grid-cols-1 max-w-[90%] m-auto'>
+          <h1 className='text-center mt-4 mb-4 text-lg font-bold'> Tienda del {new Date().toLocaleDateString()}</h1>
 
           {section.length > 0 && section.map((el, index) =>
             <div key={`${index}_${el.section}`} className='border-b-2 border-x-cyan-700 '>
-              <h1 className='text-2xl text-center font-bold mt-4 mb-4'>{el.section}</h1>
+              <h3 className='text-2xl text-center font-bold mt-4 mb-4'>{el.section}</h3>
               <div className="text-center mb-4 grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 min-h-[190px] ">
                 {el.data.length > 0 ? el.data.map((child, index) =>
                   <div key={`${index}_${child.itemName}`} className='mb-4 flex flex-col justify-between items-center w-full h-auto'>
-                    {child.itemName.includes("Lote") || child.itemName.includes("LOTE") || child.itemName.includes("PAQUETE") || el.section.includes("Lotes") ? <Image width={250} height={250} onClick={() => {
-                      setModal(!modal)
-                      setImage(child.loteImage[0].full_background)
-                    }} className='rounded-lg col-span-2 ' src={child.loteImage[0].full_background} alt={`image_${child.itemName}`} /> : <Image width={250} height={250} onClick={() => {
-                      setModal(!modal)
-                      setImage(child.loteImage[0].full_background)
-                    }} className='rounded-lg' src={child.images} alt={`image_${child.name}`} />}
+                    <Card section={el.section} image={child.images} loteImage={child.loteImage[0].full_background} itemName={child.itemName} />
                   </div>
                 ) : <p>Loading Shop...</p>}
               </div>
