@@ -102,7 +102,7 @@ export default function Home({ arr }) {
   )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
 
   const fetchShop = await fetch(`${`https://fortniteapi.io/v2/shop?lang=es`}`, {
     headers: {
