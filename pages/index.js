@@ -84,10 +84,10 @@ export default function Home({ arr }) {
 
           {section.length > 0 && section.map((el, index) =>
             <div key={`${index}_${el.section}`} className='border-b-2 border-x-cyan-700 '>
-              <h3 className='text-2xl text-center font-bold mt-4 mb-4'>{el.section}</h3>
-              <div className="text-center mb-4 grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 min-h-[190px] ">
+              <marquee className='text-2xl text-center font-bold mt-4 mb-4'>{el.section}</marquee>
+              <div className="text-center mb-4 grid grid-cols-2 sm:grid-cols-4 md:grid-auto lg:grid-cols-8 gap-5 min-h-[190px] grid-flow-dense">
                 {el.data.length > 0 ? el.data.map((child, index) =>
-                  <div key={`${index}_${child.itemName}`} className='mb-4 flex flex-col justify-between items-center w-full h-auto'>
+                  <div key={`${index}_${child.itemName}`} className={`${child.itemName.includes("Lote") || child.itemName.includes("LOTE") || child.itemName.includes("PAQUETE") || el.section.includes("Lotes")} w-full h-auto`}>
                     <Card section={el.section} image={child.images} loteImage={child.loteImage[0].full_background} itemName={child.itemName} />
                   </div>
                 ) : <p>Loading Shop...</p>}
