@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Loader from '../../components/Loader'
 import { KEY_LOGIN } from '../../KEYS'
 
-const page = () => {
+const Page = () => {
     let { query: { id } } = useRouter()
     console.info(id)
     const [dataCharacter, setDataCharacter] = useState([])
@@ -40,4 +40,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page
