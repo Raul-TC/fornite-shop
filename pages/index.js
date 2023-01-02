@@ -37,7 +37,9 @@ export default function Home({ arr }) {
               images: item.granted[0].images.full_background,
               loteImage: item.displayAssets,
               description: item.displayDescription,
-              emote: item.granted[0].video
+              emote: item.granted[0].video,
+              rarity: item.rarity.id
+
               //  ...item
             })
           } else {
@@ -47,7 +49,9 @@ export default function Home({ arr }) {
               images: item.granted[0].images.full_background,
               loteImage: item.displayAssets,
               description: item.displayDescription,
-              emote: item.granted[0].video
+              emote: item.granted[0].video,
+              rarity: item.rarity.id
+
               // ...item
             })
           }
@@ -66,7 +70,7 @@ export default function Home({ arr }) {
   return (
     <>
       <Head>
-        <title>Fornite Shop App</title>
+        <title>Fortnite Shop App</title>
         <meta name="description" content="Fornite Shop Today" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="Aquí encontraras los items disponibles actualmente en la tienda de fornite." />
@@ -87,7 +91,7 @@ export default function Home({ arr }) {
               <marquee className='text-2xl text-center font-bold mt-4 mb-4'>{el.section}</marquee>
               <div className="text-center mb-4 grid grid-cols-2 sm:grid-cols-4 md:grid-auto lg:grid-cols-8 gap-5 min-h-[190px] grid-flow-dense">
                 {el.data.length > 0 ? el.data.map((child, index) =>
-                  <div key={`${index}_${child.itemName}`} className={`${child.itemName.includes("Lote") || child.itemName.includes("LOTE") || child.itemName.includes("PAQUETE") || el.section.includes("Lotes")} w-full h-auto`}>
+                  <div key={`${index}_${child.itemName}`} className={`${child.rarity === 'Common' && ' shadow-green-500 '} ${child.rarity === 'Rare' && ' shadow-blue-500 '} ${child.rarity === 'Uncommon' && ' shadow-gray-500 '} ${child.rarity === 'Epic' && ' shadow-purple-500'} ${child.rarity === 'Legendary' && ' shadow-orange-500'} rounded-lg shadow-lg w-full h-auto`}>
                     <Card section={el.section} image={child.images} loteImage={child.loteImage[0].full_background} itemName={child.itemName} />
                   </div>
                 ) : <p>Loading Shop...</p>}
@@ -116,7 +120,7 @@ export async function getServerSideProps() {
   let dd = {}
   const categories = [...new Set(data.shop.map((section) => section.section.name))]
   categories.forEach(el => {
-    el === null || el === "" ? dd["Otros"] = [] : dd[el] = [];
+    el === null || el === "" ? dd["Destacados"] = [] : dd[el] = [];
   })
 
   await data.shop.map(item => {
@@ -127,7 +131,9 @@ export async function getServerSideProps() {
         images: item.granted[0].images.full_background,
         loteImage: item.displayAssets,
         description: item.displayDescription,
-        emote: item.granted[0].video
+        emote: item.granted[0].video,
+        rarity: item.rarity.id
+
         //  ...item
       })
     } else {
@@ -137,7 +143,9 @@ export async function getServerSideProps() {
         images: item.granted[0].images.full_background,
         loteImage: item.displayAssets,
         description: item.displayDescription,
-        emote: item.granted[0].video
+        emote: item.granted[0].video,
+        rarity: item.rarity.id
+
         // ...item
       })
     }
