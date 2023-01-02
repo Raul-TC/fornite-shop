@@ -72,7 +72,18 @@ export default function Home({ arr }) {
 
   return (
     <>
-      <Head title='Fortnite Shop App' />
+      <Head>
+        <title>Fortnite Shop App</title>
+        <meta name="description" content="Fornite Shop Today" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="Aquí encontraras los items disponibles actualmente en la tienda de fornite." />
+        <meta name="facebook:card" value="summary" />
+        <meta property="og:title" content="Fornite Shop Today" />
+        <meta property="og:type" content="article" />
+        <meta property="og:description" content="Tienda Fornite de Hoy" />
+        <meta name='theme-color' content={DarkTheme ? "#2C2C2C" : "#FFFFFF"} />
+        <link rel="icon" href="./favicon.ico" />
+      </Head>
       <main className={`${DarkTheme ? "bg-[#2c2c2c] text-white" : "bg-white text-[#2c2c2c]"} min-h-screen`}>
         <div className='grid grid-cols-1 max-w-[90%] m-auto'>
           <h1 className='text-center mt-4 mb-4 text-lg font-bold'> Tienda del {new Date().toLocaleDateString()}</h1>
