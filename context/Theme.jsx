@@ -28,18 +28,11 @@ const ThemeProvider = ({ children }) => {
       localStorage.setItem('theme', false)
       document.body.classList.add('bg-white');
       document.body.classList.remove('bg-[#2c2c2c]');
-      document.querySelector('meta[name="theme-color"]').setAttribute("content", "#FFFFFF");
-
-
     } else {
       setDarkTheme(true)
       localStorage.setItem('theme', true)
       document.body.classList.add('bg-[#2c2c2c]');
       document.body.classList.remove('bg-white');
-      document.querySelector('meta[name="theme-color"]').setAttribute("content", "#2c2c2c");
-
-
-
     }
   }
   const data = { DarkTheme, handleTheme }
