@@ -11,14 +11,10 @@ const ThemeProvider = ({ children }) => {
       setDarkTheme(true)
       document.body.classList.add('bg-[#2c2c2c]');
       document.body.classList.remove('bg-white');
-      document.querySelector('meta[name="theme-color"]').setAttribute("content", "#2c2c2c");
-
     } else {
       setDarkTheme(false)
       document.body.classList.remove('bg-[#2c2c2c]');
       document.body.classList.add('bg-white');
-      document.querySelector('meta[name="theme-color"]').setAttribute("content", "#FFFFFF");
-
     }
   }, [])
 
