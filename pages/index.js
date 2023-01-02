@@ -2,17 +2,18 @@ import Head from 'next/head'
 import { useContext, useEffect, useState } from 'react'
 import { KEY_LOGIN } from '../KEYS'
 import Header from '../components/Header'
-import Modal from '../components/Modal'
 import ThemeContext from '../context/Theme'
 import logo from "../assets/shop-pngrepo-com.png"
 import Image from 'next/image'
 import Card from '../components/Card'
+import Link from 'next/link'
 
 export default function Home({ arr }) {
   const { DarkTheme } = useContext(ThemeContext)
   const [section, setSection] = useState(arr)
   // const [modal, setModal] = useState(false);
   const [image, setImage] = useState("");
+  const [loader, setLoader] = useState(true)
 
   useEffect(() => {
 
@@ -32,6 +33,7 @@ export default function Home({ arr }) {
         el.shop.map(item => {
           if (dd[item.section.name] === "" || dd[item.section.name] === undefined || dd[item.section.name] === null) {
             dd["Destacados"].push({
+              id: item.mainId,
               itemName: item.displayName,
               price: item.price.finalPrice,
               images: item.granted[0].images.full_background,
@@ -44,6 +46,7 @@ export default function Home({ arr }) {
             })
           } else {
             dd[item.section.name].push({
+              id: item.mainId,
               itemName: item.displayName,
               price: item.price.finalPrice,
               images: item.granted[0].images.full_background,
@@ -81,19 +84,19 @@ export default function Home({ arr }) {
         <link rel="icon" href="./favicon.ico" />
       </Head>
       <main className={`${DarkTheme ? "bg-[#2c2c2c] text-white" : "bg-white text-[#2c2c2c]"} min-h-screen`}>
-        <Header />
-
         <div className='grid grid-cols-1 max-w-[90%] m-auto'>
           <h1 className='text-center mt-4 mb-4 text-lg font-bold'> Tienda del {new Date().toLocaleDateString()}</h1>
-
+          <Link className='text-center mt-4 mb-4 text-lg font-bold' href="/nextItems/page">Tienda de Mañana</Link>
           {section.length > 0 && section.map((el, index) =>
             <div key={`${index}_${el.section}`} className='border-b-2 border-x-cyan-700 '>
               <marquee className='text-2xl text-center font-bold mt-4 mb-4'>{el.section}</marquee>
               <div className="text-center mb-4 grid grid-cols-2 sm:grid-cols-4 md:grid-auto lg:grid-cols-8 gap-5 min-h-[190px] grid-flow-dense">
                 {el.data.length > 0 ? el.data.map((child, index) =>
-                  <div key={`${index}_${child.itemName}`} className={`${child.rarity === 'Common' && ' shadow-green-500 '} ${child.rarity === 'Rare' && ' shadow-blue-500 '} ${child.rarity === 'Uncommon' && ' shadow-gray-500 '} ${child.rarity === 'Epic' && ' shadow-purple-500'} ${child.rarity === 'Legendary' && ' shadow-orange-500'} rounded-lg shadow-lg w-full h-auto`}>
-                    <Card section={el.section} image={child.images} loteImage={child.loteImage[0].full_background} itemName={child.itemName} />
-                  </div>
+                  <Link key={`${index}_${child.id}`} href={`item/${child.id}`}>
+                    <div className={`${child.rarity === 'Common' && ' shadow-green-500 '} ${child.rarity === 'Rare' && ' shadow-blue-500 '} ${child.rarity === 'Uncommon' && ' shadow-gray-500 '} ${child.rarity === 'Epic' && ' shadow-purple-500'} ${child.rarity === 'Legendary' && ' shadow-orange-500'} rounded-lg shadow-lg w-full h-auto`}>
+                      <Card section={el.section} image={child.images} loteImage={child.loteImage[0].full_background} itemName={child.itemName} />
+                    </div>
+                  </Link>
                 ) : <p>Loading Shop...</p>}
               </div>
 
@@ -126,6 +129,7 @@ export async function getServerSideProps() {
   await data.shop.map(item => {
     if (dd[item.section.name] === "" || dd[item.section.name] === undefined || dd[item.section.name] === null) {
       dd["Destacados"].push({
+        id: item.mainId,
         itemName: item.displayName,
         price: item.price.finalPrice,
         images: item.granted[0].images.full_background,
@@ -138,6 +142,7 @@ export async function getServerSideProps() {
       })
     } else {
       dd[item.section.name].push({
+        id: item.mainId,
         itemName: item.displayName,
         price: item.price.finalPrice,
         images: item.granted[0].images.full_background,
