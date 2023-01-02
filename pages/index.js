@@ -81,6 +81,7 @@ export default function Home({ arr }) {
         <meta property="og:title" content="Fornite Shop Today" />
         <meta property="og:type" content="article" />
         <meta property="og:description" content="Tienda Fornite de Hoy" />
+        <meta name='theme-color' content='#2c2c2c' />
         <link rel="icon" href="./favicon.ico" />
       </Head>
       <main className={`${DarkTheme ? "bg-[#2c2c2c] text-white" : "bg-white text-[#2c2c2c]"} min-h-screen`}>
