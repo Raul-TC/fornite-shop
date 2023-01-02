@@ -1,10 +1,11 @@
 import React, { useContext } from 'react'
 import ThemeContext from '../context/Theme'
-
-const Head = ({ title }) => {
+import Head from 'next/head'
+const HeadPage = ({ title = "Tienda de hoy Fortnite" }) => {
     const { DarkTheme } = useContext(ThemeContext)
     return (
-        <head>
+
+        <Head>
             <title>{title}</title>
             <meta name="description" content="Fornite Shop Today" />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -15,8 +16,7 @@ const Head = ({ title }) => {
             <meta property="og:description" content="Tienda Fornite de Hoy" />
             <meta name='theme-color' content={DarkTheme ? "#2C2C2C" : "#FFFFFF"} />
             <link rel="icon" href="./favicon.ico" />
-        </head>
-    )
+        </Head>)
 }
 
-export default Head
+export default HeadPage

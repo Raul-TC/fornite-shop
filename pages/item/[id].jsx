@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
+import HeadPage from '../../components/Head'
 import Loader from '../../components/Loader'
 import { KEY_LOGIN } from '../../KEYS'
 
@@ -34,6 +35,7 @@ const Page = () => {
 
     return (
         <>
+            <HeadPage />
             {loader && <div className='min-h-screen flex items-center justify-center'><Loader /></div>}
             <div>{dataCharacter && <h1 className='font-bold text-xl text-center'>{dataCharacter.name}</h1>}</div>
         </>

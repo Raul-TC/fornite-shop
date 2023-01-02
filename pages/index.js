@@ -3,7 +3,8 @@ import { KEY_LOGIN } from '../KEYS'
 import ThemeContext from '../context/Theme'
 import Card from '../components/Card'
 import Link from 'next/link'
-import Head from '../components/Head'
+import HeadPage from '../components/Head'
+import CountDown from '../components/CountDown'
 
 export default function Home({ arr }) {
   const { DarkTheme } = useContext(ThemeContext)
@@ -69,11 +70,11 @@ export default function Home({ arr }) {
 
   return (
     <>
-      <Head />
+      <HeadPage title='Tienda de hoy Fortnite' />
       <main className={`${DarkTheme ? "bg-[#2c2c2c] text-white" : "bg-white text-[#2c2c2c]"} min-h-screen`}>
         <div className='grid grid-cols-1 max-w-[90%] m-auto'>
-          <h1 className='text-center mt-4 mb-4 text-lg font-bold'> Tienda del {new Date().toLocaleDateString()}</h1>
-          <Link className='text-center mt-4 mb-4 text-lg font-bold' href="/nextItems/page">Tienda de Mañana</Link>
+          <CountDown />
+          {/* <Link className='text-center mt-4 mb-4 text-lg font-bold' href="/nextItems/page">Tienda de Mañana</Link> */}
           {section.length > 0 && section.map((el, index) =>
             <div key={`${index}_${el.section}`} className='border-b-2 border-x-cyan-700 '>
               <marquee className='text-2xl text-center font-bold mt-4 mb-4'>{el.section}</marquee>
