@@ -13,7 +13,7 @@ const Head = ({ title }) => {
             <meta property="og:title" content="Fornite Shop Today" />
             <meta property="og:type" content="article" />
             <meta property="og:description" content="Tienda Fornite de Hoy" />
-            <meta name='theme-color' content={DarkTheme ? "#2c2c2c" : "FFFFFF"} />
+            <meta name='theme-color' content={DarkTheme ? "#2C2C2C" : "#FFFFFF"} />
             <link rel="icon" href="./favicon.ico" />
         </Head>)
 }
