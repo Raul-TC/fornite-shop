@@ -10,10 +10,11 @@ const CountDown = () => {
 
     const deadline = new Date();
 
-    if (deadline.getHours() >= 20) {
+    if (deadline.getHours() >= 18) {
         deadline.setDate(deadline.getDate() + 1);
+        window.location.reload()
     }
-    deadline.setHours(20, 0, 0, 0);
+    deadline.setHours(18, 0, 0, 0);
     // Set time to 11am;
 
     // console.info(deadline)
