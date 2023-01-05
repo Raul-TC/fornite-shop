@@ -12,9 +12,9 @@ const CountDown = () => {
 
     if (deadline.getHours() >= 18) {
         deadline.setDate(deadline.getDate() + 1);
-        window.location.reload()
     }
     deadline.setHours(18, 0, 0, 0);
+    // window.location.reload()
     // Set time to 11am;
 
     // console.info(deadline)
