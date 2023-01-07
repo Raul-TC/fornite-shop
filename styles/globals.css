@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    height: auto;
+    width: 100%;
+}
+
 .lds-roller {
     display: inline-block;
     position: relative;
