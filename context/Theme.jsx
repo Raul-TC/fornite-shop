@@ -13,7 +13,7 @@ const ThemeProvider = ({ children }) => {
       document.body.classList.remove('bg-white', 'text-[#2c2c2c]');
     } else {
       setDarkTheme(false)
-      document.body.classList.remove('bg-[#2c2c2c] text-white');
+      document.body.classList.remove('bg-[#2c2c2c]', 'text-white');
       document.body.classList.add('bg-white', 'text-[#2c2c2c]');
     }
   }, [])
