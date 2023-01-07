@@ -1,0 +1,20 @@
+[
+    {
+        "pais": "Mexico",
+        "capital": "CDMX",
+        "poblacion": 114,
+        "server": "skf"
+    },
+    {
+        "pais": "Venezuela",
+        "capital": "Caracas",
+        "poblacion": 114,
+        "server": "skf"
+    },
+    {
+        "pais": "USA",
+        "capital": "Buenos Aires",
+        "poblacion": 114,
+        "server": "skf"
+    }
+]

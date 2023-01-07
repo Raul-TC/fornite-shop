@@ -12,7 +12,8 @@ export default function Home({ arr }) {
   // const [modal, setModal] = useState(false);
   const [image, setImage] = useState("");
   const [loader, setLoader] = useState(true)
-
+  const [skf, setSkf] = useState([])
+  const [snaplogic, setSnaplogic] = useState([])
   useEffect(() => {
 
     fetch(`${`https://fortniteapi.io/v2/shop?lang=es`}`, {
@@ -68,10 +69,62 @@ export default function Home({ arr }) {
 
   }, [])
 
+
+  const getData = async (url) => {
+
+    const waitData = await fetch(url)
+
+    const resp = await waitData.json()
+
+
+    return await resp
+  }
+
+  const readData = async () => {
+
+    const skf = await getData('pruebaSKF.json')
+    const snaplogic = await getData('snaplogic.json')
+
+
+
+    let filtroSkf
+    let filtroSnap
+    skf.map(skfEl => {
+      snaplogic.map(snapEl => {
+        // if (skfEl.poblacion === snapEl.poblacion) {
+        //   filtroSkf.push(skfEl)
+        //   filtroSkf.push(snapEl)
+        // }
+
+        filtroSnap = snaplogic.filter(abb => abb.poblacion === snapEl.poblacion && abb.capital === snapEl.capital)
+      })
+      filtroSkf = skf.filter(abb => abb.poblacion === skfEl.poblacion && abb.capital === skfEl.capital)
+
+    })
+
+    //setSkf(skf)
+    //setSnaplogic(snaplogic)
+    // console.info(filtroSkf)
+    const unique = [... new Set(filtroSkf)];
+
+    console.info(filtroSkf)
+    console.info(filtroSnap)
+
+  }
+  useEffect(() => {
+
+    readData()
+
+
+  }, [])
+
+  //  console.info(skf)
+  //  console.info(snaplogic)
+
   return (
     <>
       <HeadPage title='Tienda de hoy Fortnite' />
-      <main className={`${DarkTheme ? "bg-[#2c2c2c] text-white" : "bg-white text-[#2c2c2c]"} min-h-screen`}>
+      <main className='min-h-screen'>
         <div className='grid grid-cols-1 max-w-[90%] m-auto'>
           <CountDown />
           {/* <Link className='text-center mt-4 mb-4 text-lg font-bold' href="/nextItems/page">Tienda de Mañana</Link> */}

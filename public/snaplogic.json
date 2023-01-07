@@ -1,0 +1,20 @@
+[
+    {
+        "pais": "Brasil",
+        "capital": "CDMX",
+        "poblacion": 114,
+        "server": "snaplogic"
+    },
+    {
+        "pais": "Argentina",
+        "capital": "Buenos Aires",
+        "poblacion": 114,
+        "server": "snaplogic"
+    },
+    {
+        "pais": "Chile",
+        "capital": "Buenos Aires",
+        "poblacion": 114,
+        "server": "snaplogic"
+    }
+]
