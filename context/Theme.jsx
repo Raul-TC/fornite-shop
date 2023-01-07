@@ -9,11 +9,11 @@ const ThemeProvider = ({ children }) => {
   useEffect(() => {
     if (localStorage.getItem('theme') === 'true') {
       setDarkTheme(true)
-      document.body.classList.add('bg-[#2c2c2c]', 'text-white', 'transition', 'ease-in-out', 'duration-300');
+      document.body.classList.add('bg-[#2c2c2c]', 'text-white');
       document.body.classList.remove('bg-white', 'text-[#2c2c2c]');
     } else {
       setDarkTheme(false)
-      document.body.classList.remove('bg-[#2c2c2c]', 'text-white',);
+      document.body.classList.remove('bg-[#2c2c2c]', 'text-white');
       document.body.classList.add('bg-white', 'text-[#2c2c2c]');
     }
   }, [])
