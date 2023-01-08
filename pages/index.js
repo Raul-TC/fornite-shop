@@ -124,27 +124,27 @@ export default function Home({ arr }) {
   return (
     <>
       <HeadPage title='Tienda de hoy Fortnite' />
-      <main className='min-h-screen'>
-        <div className='grid grid-cols-1 max-w-[90%] m-auto'>
-          <CountDown />
-          {/* <Link className='text-center mt-4 mb-4 text-lg font-bold' href="/nextItems/page">Tienda de Mañana</Link> */}
-          {section.length > 0 && section.map((el, index) =>
-            <div key={`${index}_${el.section}`} className='border-b-2 border-x-cyan-700  pb-4'>
-              <marquee className='text-2xl text-center font-bold mt-4 mb-4'>{el.section}</marquee>
-              <div className="text-center mb-4 grid grid-cols-2 sm:grid-cols-4 md:grid-auto gap-5 min-h-[190px] grid-flow-dense ">
-                {el.data.length > 0 ? el.data.map((child, index) =>
-                  <Link key={`${index}_${child.id}`} href={`item/${child.id}`}>
-                    <div className={`${child.rarity === 'Common' && ' shadow-green-500 '} ${child.rarity === 'Rare' && ' shadow-blue-500 '} ${child.rarity === 'Uncommon' && ' shadow-gray-500 '} ${child.rarity === 'Epic' && ' shadow-purple-500'} ${child.rarity === 'Legendary' && ' shadow-orange-500'} rounded-lg shadow-lg w-full h-auto overflow-hidden`}>
-                      <Card section={el.section} image={child.images} loteImage={child.loteImage[0].full_background} itemName={child.itemName} />
-                    </div>
-                  </Link>
-                ) : <p>Loading Shop...</p>}
-              </div>
+      <main className={`${DarkTheme ? 'bg-[#2c2c2c] text-white' : 'bg-white text-[#2c2c2c]'} m-auto w-[95%] flex flex-col justify-center items-center h-auto`}>
+        <h1 className='text-2xl font-bold mb-4'>Tienda de hoy {new Date().toLocaleDateString()}</h1>
+        <CountDown />
+        {/* <Link className='text-center mt-4 mb-4 text-lg font-bold' href="/nextItems/page">Tienda de Mañana</Link> */}
 
+        {section.length > 0 && section.map((el, index) =>
+          <div key={`${index}_${el.section}`} className='border-b-2 border-x-cyan-700 pb-4 w-full'>
+            <marquee className='text-2xl text-center font-bold mt-4 mb-4'>{el.section}</marquee>
+            <div className="text-center mb-4 grid grid-cols-2 sm:grid-cols-4 md:grid-auto gap-5 min-h-[190px] grid-flow-dense m-auto ">
+              {el.data.length > 0 ? el.data.map((child, index) =>
+                <Link key={`${index}_${child.id}`} href={`item/${child.id}`}>
+                  <div className={`${child.rarity === 'Common' && ' shadow-green-500 '} ${child.rarity === 'Rare' && ' shadow-blue-500 '} ${child.rarity === 'Uncommon' && ' shadow-gray-500 '} ${child.rarity === 'Epic' && ' shadow-purple-500'} ${child.rarity === 'Legendary' && ' shadow-orange-500'} rounded-lg shadow-lg w-full h-auto overflow-hidden`}>
+                    <Card section={el.section} image={child.images} loteImage={child.loteImage[0].full_background} itemName={child.itemName} />
+                  </div>
+                </Link>
+              ) : <p>Loading Shop...</p>}
             </div>
-          )}
 
-        </div>
+          </div>
+        )}
+
       </main>
     </>
   )

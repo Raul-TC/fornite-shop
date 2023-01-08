@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ThemeContext from '../../../context/Theme'
 import { KEY_LOGIN } from '../../../KEYS'
 
@@ -7,7 +7,7 @@ const Accesorios = () => {
     const { DarkTheme } = useContext(ThemeContext)
     let { query: { accesorios } } = useRouter()
     // const [dataCharacter, setDataCharacter] = useState([])
-    // const [loader, setLoader] = useState(true)
+    const [loader, setLoader] = useState(true)
     // const [Images, setImages] = useState(0)
     // const [sizeArray, setSizeArray] = useState(0)
     const fetchData = async () => {

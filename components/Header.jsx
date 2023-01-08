@@ -5,17 +5,23 @@ import ToogleTheme from './ToogleTheme'
 import logoTitle from '../assets/FortniteLogo.svg'
 import logoTitleWhite from '../assets/FortniteLogoWhite.svg'
 import Link from 'next/link'
+import Container from './Layout'
 
 const Header = () => {
     const { DarkTheme } = useContext(ThemeContext)
     return (
 
-        <header className={`${DarkTheme ? 'bg-[#2c2c2c] text-white ' : 'bg-white text-[#2c2c2c]'} relative z-10 shadow-md  h-[80px] w-full border-c mb-4`}>
-            <div className='max-w-[1440px] w-[90%] m-auto flex items-center justify-between h-full'>
-                <Link href='/'>
-                    <Image src={DarkTheme ? logoTitleWhite : logoTitle} width={150} height={60} alt='logo_fornite' />
-                </Link>
-                <ToogleTheme />
+        <header className={`${DarkTheme ? 'bg-[#2c2c2c] text-white' : 'bg-white text-[#2c2c2c]'} relative z-10 shadow-md h-[80px] w-full `}>
+            <div className='w-[95%] m-auto flex items-center h-full'>
+                <Container>
+
+                    {/* <div className='flex items-center justify-between'> */}
+                    <Link href='/'>
+                        <Image src={DarkTheme ? logoTitleWhite : logoTitle} width={150} height={60} alt='logo_fornite' priority />
+                    </Link>
+                    <ToogleTheme />
+                    {/* </div> */}
+                </Container>
             </div>
         </header>
 

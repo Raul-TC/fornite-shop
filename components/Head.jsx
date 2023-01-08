@@ -4,7 +4,6 @@ import Head from 'next/head'
 const HeadPage = ({ title = "Tienda de hoy Fortnite" }) => {
     const { DarkTheme } = useContext(ThemeContext)
     return (
-
         <Head>
             <title>{title}</title>
             <meta name="description" content="Fornite Shop Today" />
