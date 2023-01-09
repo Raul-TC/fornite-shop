@@ -1,11 +1,13 @@
 import Image from 'next/image'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { Suspense, useEffect, useRef, useState } from 'react'
+import Loader from './Loader'
 
 const ImageSlider = ({ arrayImages }) => {
 
     const [counter, setCounter] = useState(0)
     const images = arrayImages
     const arraySize = arrayImages.length
+    const [loader, setLoader] = useState(true)
 
     // console.info(arraySize)
     const timeoutRefImages = useRef(null);
@@ -15,6 +17,21 @@ const ImageSlider = ({ arrayImages }) => {
             clearTimeout(name.current);
         }
     }
+
+    useEffect(() => {
+
+        let imagesFetch = []
+        arrayImages.map(el => {
+            console.info(el)
+            fetch(el)
+                .then(res => res)
+                .then(resp => {
+                    imagesFetch.push(resp.url)
+                    console.info(imagesFetch, 'images fetch')
+                    setLoader(false)
+                })
+        })
+    }, [])
 
     // console.info(timeoutRefImages)
     useEffect(() => {
@@ -38,13 +55,17 @@ const ImageSlider = ({ arrayImages }) => {
 
 
     return (
-        <div className='m-auto w-full'>
+        <Suspense fallback={<Loader />}>
 
-            {
-                arrayImages.map((el, index) => <Image priority width={350} height={350} key={`${counter}_${index}`} src={el} className={`${counter === index ? 'block' : 'hidden'}`} alt={`image_${el}_${index}`} />)
-            }
+            <div className='m-auto w-full'>
+                {/* {loader && <Loader />} */}
 
-        </div>
+                {
+                    arrayImages.map((el, index) => <Image priority width={350} height={350} key={`${counter}_${index}`} src={el} className={`${counter === index ? 'block' : 'hidden'}`} alt={`image_${el}_${index}`} />)
+                }
+
+            </div>
+        </Suspense>
     )
 }
 

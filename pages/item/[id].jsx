@@ -99,9 +99,9 @@ const Page = () => {
         <>
             <HeadPage />
 
-            {loader && <div className='min-h-screen flex items-center justify-center'><Loader /></div>}
+            {loader && <div className='min-h-screen flex flex-col items-center justify-center w-full'><Loader /></div>}
             {Object.keys(dataCharacter).length > 0 &&
-                <div className='flex flex-col items-center m-auto mt-4 w-[90%] min-h-[calc(100vh-96px)]'>
+                <div className='flex flex-col items-center m-auto mt-4 w-[90%] max-w-[1440px] min-h-[calc(100vh-96px)]'>
 
                     <Link href='/' className='self-start'><IoArrowBackOutline className='text-5xl mb-4' /></Link>
                     <div className='flex flex-col md:flex-row  items-center justify-center w-full'>
@@ -134,13 +134,13 @@ const Page = () => {
                         </div>
                     </div>
                     <h2 className='text-2xl mt-8 mb-8 font-bold'>Partes del Set {dataCharacter.set ? dataCharacter.set.name : dataCharacter.name}</h2>
-                    <div className='flex justify-between w-full flex-wrap '>
+                    <div className='grid grid-cols-2 md:grid-cols-4 mt-2 mb-8  gap-4'>
                         {dataCharacter.grants.map((el, index) =>
-                            <Link href={`/item/${el.id}`} key={`${el.id}_${index}`}>
-                                <div className='w-52 h-62 flex flex-col items-start justify-start' >
-                                    <Image priority className='m-auto' src={el.images.icon_background} width={350} height={350} alt={el.id} />
-                                    <p className='font-bold text-center mt-2  mb-2 text-lg '>{el.description}</p>
-                                </div>
+                            <Link href={`/item/accesorios/${el.id}`} key={`${el.id}_${index}`}>
+
+                                <Image priority src={el.images.icon_background} width={350} height={350} alt={el.id} />
+                                {/* <p className='font-bold text-center mt-2  mb-2 text-lg '>{el.description}</p> */}
+
                             </Link>
                         )}
                     </div>

@@ -12,7 +12,7 @@ const Header = () => {
     return (
 
         <header className={`${DarkTheme ? 'bg-[#2c2c2c] text-white' : 'bg-white text-[#2c2c2c]'} relative z-10 shadow-md h-[80px] w-full `}>
-            <div className='w-[95%] m-auto flex items-center h-full'>
+            <div className='w-[95%] max-w-[1440px] m-auto flex items-center h-full'>
                 <Container>
 
                     {/* <div className='flex items-center justify-between'> */}

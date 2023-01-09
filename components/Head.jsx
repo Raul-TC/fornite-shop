@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import ThemeContext from '../context/Theme'
 import Head from 'next/head'
+
 const HeadPage = ({ title = "Tienda de hoy Fortnite" }) => {
     const { DarkTheme } = useContext(ThemeContext)
     return (

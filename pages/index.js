@@ -124,8 +124,8 @@ export default function Home({ arr }) {
   return (
     <>
       <HeadPage title='Tienda de hoy Fortnite' />
-      <main className={`${DarkTheme ? 'bg-[#2c2c2c] text-white' : 'bg-white text-[#2c2c2c]'} m-auto w-[95%] flex flex-col justify-center items-center h-auto`}>
-        <h1 className='text-2xl font-bold mb-4'>Tienda de hoy {new Date().toLocaleDateString()}</h1>
+      <main className={`${DarkTheme ? 'bg-[#2c2c2c] text-white' : 'bg-white text-[#2c2c2c]'} m-auto w-[95%] max-w-[1440px] flex flex-col justify-center items-center h-auto`}>
+        <h1 className='text-2xl font-bold mb-4 mt-8'>Tienda de hoy {new Date().toLocaleDateString()}</h1>
         <CountDown />
         {/* <Link className='text-center mt-4 mb-4 text-lg font-bold' href="/nextItems/page">Tienda de Mañana</Link> */}
 
