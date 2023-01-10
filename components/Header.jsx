@@ -11,7 +11,7 @@ const Header = () => {
     const { DarkTheme } = useContext(ThemeContext)
     return (
 
-        <header className={`${DarkTheme ? 'bg-[#2c2c2c] text-white' : 'bg-white text-[#2c2c2c]'} relative z-10 shadow-md h-[80px] w-full `}>
+        <header className={`${DarkTheme ? 'bg-[#2c2c2c] text-white' : 'bg-white text-[#2c2c2c]'} transition-all duration-300 relative z-10 shadow-md h-[80px] w-full `}>
             <div className='w-[95%] max-w-[1440px] m-auto flex items-center h-full'>
                 <Container>
 

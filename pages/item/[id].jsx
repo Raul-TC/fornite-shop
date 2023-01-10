@@ -36,6 +36,7 @@ const Page = () => {
             setDataCharacter(reqJson.item)
             setSizeArray(reqJson.item.displayAssets.length)
 
+            localStorage.setItem('grants', JSON.stringify(reqJson.item.grants))
             let arrImg = []
             reqJson.item.displayAssets.forEach(el => {
                 arrImg.push(el.full_background)
