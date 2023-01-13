@@ -57,7 +57,7 @@ const Accesorios = ({ item }) => {
                     </div>
                     <div className=' mt-4 mb-4 md:mb-8'>
                         <p className='text-sm'>Tipo: {item.type.id === 'outfit' ? 'Skin' : item.type.name}</p>
-                        <p className='text-sm'>Agregado ienda: el {item.added.date} ({getDays(item.added.date)} )</p>
+                        <p className='text-sm'>Agregado a la Tienda: el {item.added.date} ({getDays(item.added.date)} )</p>
                         <p className='text-sm'>Set: {item.set ? item.set.name : item.name}</p>
                         <p className='text-sm'>{item.introduction.text}</p>
 
