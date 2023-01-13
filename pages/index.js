@@ -90,10 +90,12 @@ export async function getServerSideProps() {
 
   const data = await fetchShop.json()
 
+  //console.info(data)
   let dd = {}
   const categories = [...new Set(data.shop.map((section) => section.section.name))]
   categories.forEach(el => {
-    el === null || el === "" ? dd["Destacados"] = [] : dd[el] = [];
+    el === null || el === "" || el === false ? dd["Destacados"] = [] : dd[el] = [];
+    console.info(el)
   })
 
   await data.shop.map(item => {
@@ -105,7 +107,6 @@ export async function getServerSideProps() {
         images: item.granted[0].images.full_background,
         loteImage: item.displayAssets,
         description: item.displayDescription,
-        emote: item.granted[0].video,
         rarity: item.rarity.id
 
         //  ...item
@@ -118,7 +119,6 @@ export async function getServerSideProps() {
         images: item.granted[0].images.full_background,
         loteImage: item.displayAssets,
         description: item.displayDescription,
-        emote: item.granted[0].video,
         rarity: item.rarity.id
 
         // ...item
