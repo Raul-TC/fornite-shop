@@ -61,11 +61,11 @@ export default function Home({ arr }) {
         {arr.map((el, index) =>
           <div key={`${index}_${el.section}`} className='border-b-2 border-x-cyan-100 pb-4 w-full'>
             <marquee className='text-2xl text-center font-bold mt-4 mb-4'>{el.section}</marquee>
-            <div className="text-center mb-4 grid grid-cols-2 sm:grid-cols-4 md:grid-auto gap-5 min-h-[190px] grid-flow-dense m-auto ">
+            <div className="text-center mb-4 grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 md:grid-auto gap-5 min-h-[190px] grid-flow-dense m-auto ">
               {el.data.map((child, index) =>
                 <Link key={`${index}_${child.id}`} href={`item/${child.id}`}>
                   <div className={`${child.rarity === 'Common' && ' shadow-green-500 '} ${child.rarity === 'Rare' && ' shadow-blue-500 '} ${child.rarity === 'Uncommon' && ' shadow-gray-500 '} ${child.rarity === 'Epic' && ' shadow-purple-500'} ${child.rarity === 'Legendary' && ' shadow-orange-500'} rounded-lg shadow-md w-full h-auto overflow-hidden`}>
-                    <Card section={el.section} image={child.images} loteImage={child.loteImage[0].full_background} itemName={child.itemName} />
+                    <Card section={el.section} image={child.loteImage[0].full_background} loteImage={child.loteImage[0].full_background} itemName={child.itemName} />
                   </div>
                 </Link>
               )}
