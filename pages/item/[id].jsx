@@ -13,7 +13,7 @@ const Page = ({ item }) => {
   const [arrayImages, setArrayImages] = useState([])
   const [reversedHistory, setReversedHistory] = useState([])
 
-  console.info(item)
+//   console.info(item)
   const { query: { id } } = useRouter()
   useEffect(() => {
     const arrImg = []
@@ -66,7 +66,7 @@ const Page = ({ item }) => {
             </p>
           </div>
           <p className='self-start font-bold'>Agregado a la tienda:<span className='font-normal'> {getFullDate(item.added.date)}</span></p>
-          <p className='self-start font-bold'>Series:<span className='self-start font-normal'> {item.series.name}</span></p>
+                  {item.series && <p className='self-start font-bold'>Series:<span className='self-start font-normal'> {item.series.name}</span></p>}
           <div>
 
             {item.shopHistory?.length >= 1 && <h2 className='text-center font-bold text-2xl'>Apariciones en Tienda</h2>}
