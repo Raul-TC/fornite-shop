@@ -1,5 +1,4 @@
 import { createContext, useEffect, useState } from 'react'
-import { BsTag } from 'react-icons/bs'
 
 const ThemeContext = createContext()
 
@@ -24,12 +23,7 @@ const ThemeProvider = ({ children }) => {
     }
   }
   const data = { DarkTheme, handleTheme }
-  console.info(DarkTheme)
-  return <ThemeContext.Provider value={data}>
-    {/* <div className={DarkTheme ? 'bg-black text-red-400' : 'bg-white text-[#2c2c2c]'}> */}
-    {children}
-    {/* </div> */}
-  </ThemeContext.Provider>
+  return <ThemeContext.Provider value={data}>{children}</ThemeContext.Provider>
 }
 
 export { ThemeProvider }
