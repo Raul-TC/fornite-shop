@@ -87,7 +87,7 @@ const Page = ({ item }) => {
                               {
                                   item.shopHistory?.length > 3 && <button className='w-[60%] h-8 font-bold block mt-4 mb-4 rounded-md text-center' onClick={() => setShowHistory(!showHistory)}>{showHistory ? 'Ocultar historial' : 'Ver todo el historial'}</button>
                               }
-                            </div>
+                              </div>
                             : <p>Agregado el: {getFullDate(item.added.date)}</p>
             }
           </div>
