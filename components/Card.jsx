@@ -6,12 +6,12 @@ const Card = ({ section, image, loteImage, itemName }) => {
     <div className='cursor-pointer '>
       {itemName.includes('Lote') || itemName.includes('LOTE') || itemName.includes('PAQUETE') || itemName.includes('Pack') || section.includes('Lotes')
         ? <Image
-            priority quality={75} width={250} height={250} onClick={() => {
+            priority width={250} height={250} onClick={() => {
             }} className='w-full h-auto' src={loteImage} alt={`image_${itemName}`}
           />
         : <Image
-            priority quality={75} width={250} height={250} onClick={() => {
-            }} className='w-full h-auto' src={image} alt={`image_${itemName}`}
+            priority width={250} height={250} onClick={() => {
+            }} src={image} alt={`image_${itemName}`}
           />}
     </div>
   )
