@@ -61,7 +61,7 @@ export default function Home ({ arr }) {
             <div className='text-center mb-4 grid grid-cols-2 md:grid-cols-6 md:grid-auto gap-5 min-h-[190px] items-start justify-center grid-flow-dense m-auto '>
               {el.data.map((child, index) =>
                 <Link
-                  key={`${index}_${child.id}`} href={`item/${child.id}`} className={`${child.itemName.includes('Lote') || child.itemName.includes('LOTE') || child.itemName.includes('PAQUETE') || child.itemName.includes('Pack') || el.section.includes('Lotes') ? ' shadow-rose-600 col-span-full' : ''} rounded-lg shadow-md w-full col-span-1 auto-rows-fr `}
+                  key={`${index}_${child.id}`} href={`item/${child.id}`} className={`${child.itemName.includes('Lote') || child.itemName.includes('LOTE') || child.itemName.includes('PAQUETE') || child.itemName.includes('Pack') || el.section.includes('Lotes') ? ' shadow-rose-600 col-span-full' : ''} rounded-lg shadow-md w-full auto-rows-fr `}
                 >
                   <div>
                     <Card section={el.section} image={child.loteImage[0].full_background} loteImage={child.loteImage[0].full_background} itemName={child.itemName} />
