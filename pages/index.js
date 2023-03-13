@@ -52,7 +52,7 @@ export default function Home ({ arr }) {
   return (
     <>
       <HeadPage title='Tienda de hoy Fortnite' />
-      <main className={`${DarkTheme ? 'bg-[#2c2c2c] text-white' : 'bg-white text-[#2c2c2c]'} m-auto w-[95%] max-w-[1440px] flex flex-col justify-center items-center h-auto`}>
+      <main className={`${DarkTheme ? 'bg-[#2c2c2c] text-[#F4F400]' : 'bg-white text-[#2c2c2c]'} m-auto w-[95%] max-w-[1440px] flex flex-col justify-center items-center h-auto`}>
         <h1 className='text-lg font-bold mb-4 mt-8'>Tienda de hoy {getDayOnTheWeek()} {new Date().toLocaleDateString()}</h1>
         <CountDown />
         {arr.map((el, index) =>
@@ -61,7 +61,7 @@ export default function Home ({ arr }) {
             <div className='text-center mb-4 grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 md:grid-auto gap-5 min-h-[190px] items-start justify-center grid-flow-dense m-auto '>
               {el.data.map((child, index) =>
                 <Link
-                  key={`${index}_${child.id}`} href={`item/${child.id}`} className={`${child.itemName.includes('Lote') || child.itemName.includes('LOTE') || child.itemName.includes('PAQUETE') || child.itemName.includes('Pack') || el.section.includes('Lotes') ? 'col-span-full  shadow-rose-600 md:col-span-2 md:col-start-1' : ''} rounded-lg shadow-md w-full col-span-1 auto-rows-fr `}
+                  key={`${index}_${child.id}`} href={`item/${child.id}`} className={`${child.itemName.includes('Lote') || child.itemName.includes('LOTE') || child.itemName.includes('PAQUETE') || child.itemName.includes('Pack') || el.section.includes('Lotes') ? ' shadow-rose-600 md:col-span-2 md:col-start-1' : ''} rounded-lg shadow-md w-full col-span-1 auto-rows-fr `}
                 >
                   <div>
                     <Card section={el.section} image={child.loteImage[0].full_background} loteImage={child.loteImage[0].full_background} itemName={child.itemName} />
