@@ -58,7 +58,7 @@ export default function Home ({ arr }) {
         {arr.map((el, index) =>
           <div key={`${index}_${el.section}`} className='pb-4 w-full'>
             <section className='text-2xl text-center font-bold mt-4 mb-4'>{el.section}</section>
-            <div className='text-center mb-4 grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 md:grid-auto gap-5 min-h-[190px] items-start justify-center grid-flow-dense m-auto '>
+            <div className='text-center mb-4 grid grid-cols-2 md:grid-cols-6 md:grid-auto gap-5 min-h-[190px] items-start justify-center grid-flow-dense m-auto '>
               {el.data.map((child, index) =>
                 <Link
                   key={`${index}_${child.id}`} href={`item/${child.id}`} className={`${child.itemName.includes('Lote') || child.itemName.includes('LOTE') || child.itemName.includes('PAQUETE') || child.itemName.includes('Pack') || el.section.includes('Lotes') ? ' shadow-rose-600 col-span-full' : ''} rounded-lg shadow-md w-full col-span-1 auto-rows-fr `}
