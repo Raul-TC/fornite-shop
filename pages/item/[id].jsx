@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import HeadPage from '../../components/Head'
 import { KEY_LOGIN } from '../../KEYS'
 import { IoArrowBackOutline } from 'react-icons/io5'
@@ -24,7 +24,7 @@ const Page = ({ item }) => {
     localStorage.setItem('grants', JSON.stringify(item.grants))
     setSizeArray(item.displayAssets.length)
     setArrayImages(arrImg)
-  }, [id])
+  }, [])
 
   useEffect(() => {
     const clone = item.shopHistory.slice(0).reverse()
@@ -58,15 +58,15 @@ const Page = ({ item }) => {
         <Link href='/' className='self-start'><IoArrowBackOutline className='text-5xl mb-4' /></Link>
         <div className='flex flex-col lg:flex-row items-center justify-center w-full'>
           <div className='md:mr-12 w-full'>
-            {sizeArray > 1
+            {sizeArray >= 1
               ? <ImageSlider arrayImages={arrayImages} />
               : <Image src={item.images.full_background} width={350} height={350} alt={item.id} priority className='w-full' />}
             {item.description && <q className='py-4 block text-lg font-semibold'>{item.description}</q>}
-            <p className={`${item.rarity.id === 'Common' ? 'bg-green-500 ' : ''} ${item.rarity.id === 'Rare' ? 'bg-blue-500' : ''} ${item.rarity.id === 'Uncommon' && ' bg-gray-500 '} ${item.rarity.id === 'Epic' && ' bg-purple-500'} ${item.rarity.id === 'Legendary' && ' bg-orange-500'} mt-4 mb-4 inline-block text-white font-bold py-1 px-4 rounded-sm`}>
+            <p className={`${item.rarity.id === 'Common' ? 'bg-green-500 ' : ''} ${item.rarity.id === 'Rare' ? 'bg-blue-500' : ''} ${item.rarity.id === 'Uncommon' && ' bg-gray-500 '} ${item.rarity.id === 'Epic' && ' bg-purple-500'} ${item.rarity.id === 'Legendary' && ' bg-orange-500'} mb-4 inline-block text-white font-bold py-1 px-4 rounded-sm`}>
               {item.rarity.name}
             </p>
           </div>
-          <p className=' md:self-center font-bold'>Agregado a la tienda:<span className='font-normal'> {getFullDate(item.added.date)}</span></p>
+          {item.introduction && <p className=' md:self-center font-bold'> {item.introduction.text}</p>}
           {item.series && <p className='self-start font-bold'>Series:<span className='self-start font-normal'> {item.series.name}</span></p>}
           <div>
 
@@ -75,19 +75,18 @@ const Page = ({ item }) => {
                           item.shopHistory
                             ? <div className='flex flex-col justify-between items-center w-full flex-wrap mt-4 mb-4'>
                               {/* <div> */}
-                              <span className='block text-center'>{getFullDate(reversedHistory[getFullDate(reversedHistory[0]) === getFullDate(new Date()) ? 0 : 1])}  {getDays(reversedHistory[0])}  </span>
+                              <span className='block text-center'>{getDays(reversedHistory[0])}  </span>
                               <span className='block text-center'>{getFullDate(reversedHistory[1])}  {getDays(reversedHistory[1])} </span>
                               <span className='block text-center'>{getFullDate(reversedHistory[2])}  {getDays(reversedHistory[2])} </span>
                               {
-                                          showHistory &&
-                                            reversedHistory.slice(3).map(el => <span className='block text-center' key={el}>{getFullDate(el)} {getDays(el)}</span>)
+                                showHistory && reversedHistory.slice(3).map(el => <span className='block text-center' key={el}>{getFullDate(el)} {getDays(el)}</span>)
 
                                 }
                               {/* </div> */}
                               {
                                   item.shopHistory?.length > 3 && <button className='w-[60%] h-8 font-bold block mt-4 mb-4 rounded-md text-center' onClick={() => setShowHistory(!showHistory)}>{showHistory ? 'Ocultar historial' : 'Ver todo el historial'}</button>
                               }
-                              </div>
+                            </div>
                             : <p>Agregado el: {getFullDate(item.added.date)}</p>
             }
           </div>

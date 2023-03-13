@@ -15,6 +15,7 @@ export default function Home ({ arr }) {
     return
   }
 
+  console.info(arr)
   const getDayOnTheWeek = () => {
     const day = new Date().getDay()
 
@@ -52,25 +53,24 @@ export default function Home ({ arr }) {
   return (
     <>
       <HeadPage title='Tienda de hoy Fortnite' />
-      <main className={`${DarkTheme ? 'bg-[#2c2c2c] text-[#F4F400]' : 'bg-white text-[#2c2c2c]'} m-auto w-[95%] max-w-[1440px] flex flex-col justify-center items-center h-auto`}>
+      <main className={`${DarkTheme ? 'bg-[#2c2c2c] text-white' : 'bg-white text-[#2c2c2c]'} m-auto w-[95%] max-w-[1440px] flex flex-col justify-center items-center h-auto`}>
         <h1 className='text-lg font-bold mb-4 mt-8'>Tienda de hoy {getDayOnTheWeek()} {new Date().toLocaleDateString()}</h1>
         <CountDown />
         {arr.map((el, index) =>
-          <div key={`${index}_${el.section}`} className='pb-4 w-full'>
-            <section className='text-2xl text-center font-bold mt-4 mb-4'>{el.section}</section>
+          <section key={`${index}_${el.section}`} className='pb-4 w-full'>
+            <h2 className='text-2xl text-center font-bold mt-4 mb-4'>{el.section}</h2>
             <div className='text-center mb-4 grid grid-cols-2 md:grid-cols-6 md:grid-auto gap-5 min-h-[190px] items-start justify-center grid-flow-dense m-auto '>
               {el.data.map((child, index) =>
                 <Link
-                  key={`${index}_${child.id}`} href={`item/${child.id}`} className={`${child.itemName.includes('Lote') || child.itemName.includes('LOTE') || child.itemName.includes('PAQUETE') || child.itemName.includes('Pack') || el.section.includes('Lotes') ? ' shadow-rose-600 col-span-full' : ''} rounded-lg shadow-md w-full auto-rows-fr `}
+                  key={`${index}_${child.mainId}`} href={`item/${child.mainId}`} className={`${child.displayName.includes('Lote') || child.displayName.includes('LOTE') || child.displayName.includes('PAQUETE') || child.displayName.includes('Pack') || el.section.includes('Lotes') ? ' shadow-rose-600 col-span-full' : ''} rounded-lg shadow-md w-full auto-rows-fr `}
                 >
-                  <div>
-                    <Card section={el.section} image={child.loteImage[0].full_background} loteImage={child.loteImage[0].full_background} itemName={child.itemName} />
-                  </div>
+                  {/* <div> */}
+                  <Card section={el.section} image={child.displayAssets[0].full_background} loteImage={child.displayAssets[0].full_background} displayName={child.displayName} />
+                  {/* </div> */}
                 </Link>
               )}
             </div>
-
-          </div>
+          </section>
         )}
 
       </main>
@@ -88,41 +88,43 @@ export async function getServerSideProps () {
 
   const data = await fetchShop.json()
 
-  const dd = {}
+  // console.info(data.shop,"full data")
+  const dataFiltered = {}
   const categories = [...new Set(data.shop.map((section) => section.section.name))]
   categories.forEach(el => {
-    el === null || el === '' || el === false ? dd.Destacados = [] : dd[el] = []
+    el === null || el === '' || el === false ? dataFiltered.Destacados = [] : dataFiltered[el] = []
     console.info(el)
   })
 
   await data.shop.forEach(item => {
-    if (dd[item.section.name] === '' || dd[item.section.name] === undefined || dd[item.section.name] === null) {
-      dd.Destacados.push({
-        id: item.mainId,
-        itemName: item.displayName,
-        price: item.price.finalPrice,
-        images: item.granted[0].images.full_background,
-        loteImage: item.displayAssets,
-        description: item.displayDescription,
-        rarity: item.rarity.id
+    if (dataFiltered[item.section.name] === '' || dataFiltered[item.section.name] === undefined || dataFiltered[item.section.name] === null) {
+      dataFiltered.Destacados.push({
+        // id: item.mainId,
+        // itemName: item.displayName,
+        // price: item.price.finalPrice,
+        // images: item.granted[0].images.full_background,
+        // loteImage: item.displayAssets,
+        // description: item.displayDescription,
+        // rarity: item.rarity.id
+        ...item
       })
     } else {
-      dd[item.section.name].push({
-        id: item.mainId,
-        itemName: item.displayName,
-        price: item.price.finalPrice,
-        images: item.granted[0].images.full_background,
-        loteImage: item.displayAssets,
-        description: item.displayDescription,
-        rarity: item.rarity.id
+      dataFiltered[item.section.name].push({
+        // id: item.mainId,
+        // itemName: item.displayName,
+        // price: item.price.finalPrice,
+        // images: item.granted[0].images.full_background,
+        // loteImage: item.displayAssets,
+        // description: item.displayDescription,
+        // rarity: item.rarity.id
 
-        // ...item
+        ...item
       })
     }
   })
   const arr = []
 
-  Object.entries(dd).forEach(([key, value]) => {
+  Object.entries(dataFiltered).forEach(([key, value]) => {
     arr.push({ section: key, data: value })
   })
 
