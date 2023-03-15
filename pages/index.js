@@ -21,7 +21,7 @@ export default function Home ({ arr }) {
 
     let dia
 
-    switch (day) {
+    switch (day-1) {
       case 0:
         dia = 'Domingo'
         break
@@ -50,11 +50,21 @@ export default function Home ({ arr }) {
     return dia
   }
 
+  let dayNow = new Date()
+
+  let day = (dayNow.getDate() -1).toString();
+  let month = (dayNow.getMonth() +1).toString();
+  let year = dayNow.getFullYear().toString();
+
+
+  let afterDate = `${year},${month},${day}`
+
+  console.info(new Date(afterDate))
   return (
     <>
       <HeadPage title='Tienda Fortnite HOY' />
       <main className='dark:bg-background-black dark:text-gray-100 bg-gray-100 text-background-black m-auto w-[95%] max-w-[1440px] flex flex-col justify-center items-center h-auto'>
-        <h1 className='text-lg font-bold mb-4 mt-8'>Tienda de hoy {getDayOnTheWeek()} {new Date().toLocaleDateString()}</h1>
+        <h1 className='text-lg font-bold mb-4 mt-8 text-orange-300'>Tienda del {new Date(afterDate).toLocaleDateString()}</h1>
         <CountDown />
         {arr.map((el, index) =>
           <section key={`${index}_${el.section}`} className='pb-4 w-full'>

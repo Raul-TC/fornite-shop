@@ -63,7 +63,7 @@ const Page = ({ item }) => {
               ? <ImageSlider arrayImages={arrayImages} />
               : <Image src={item.images.full_background} width={350} height={350} alt={item.id} priority className='w-full' />}
             {item.description && <q className='py-4 block text-lg font-semibold'>{item.description}</q>}
-            <p className={`${item.rarity.id === 'Common' ? 'bg-green-500 ' : ''} ${item.rarity.id === 'Rare' ? 'bg-blue-500' : ''} ${item.rarity.id === 'Uncommon' && ' bg-gray-500 '} ${item.rarity.id === 'Epic' && ' bg-purple-500'} ${item.rarity.id === 'Legendary' && ' bg-orange-500'} mb-4 inline-block text-white font-bold py-1 px-4 rounded-sm`}>
+            <p className={`${item.rarity.id === 'Common' ? 'bg-green-500 ' : ''} ${item.rarity.id === 'Rare' ? 'bg-blue-500' : ''} ${item.rarity.id === 'Uncommon' && ' bg-gray-500 '} ${item.rarity.id === 'Epic' && ' bg-purple-500'} ${item.rarity.id === 'Legendary' && ' bg-orange-500'} my-4 inline-block text-white font-bold py-1 px-4 rounded-sm`}>
               {item.rarity.name}
             </p>
           </div>
@@ -93,7 +93,7 @@ const Page = ({ item }) => {
                   {item.shopHistory.length === 1 && <h2 className='font bold text-center'>Nuevo en Fortnite  </h2>}
                 <span className='block text-center'>{getDays(reversedHistory[0])}  </span>
 
-                <p className='text-center'> {getFullDate(item.added.date)}</p>
+                {/* <p className='text-center'> {getFullDate(item.added.date)}</p> */}
                 </>
             }
           </div>

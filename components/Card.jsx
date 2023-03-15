@@ -11,7 +11,7 @@ const Card = ({ section, image, loteImage, displayName }) => {
           />
         : <Image
             priority width={250} height={250} onClick={() => {
-            }} src={image} alt={`image_${displayName}`}
+            }} src={image} className='w-full h-auto' alt={`image_${displayName}`}
           />}
     </div>
   )
