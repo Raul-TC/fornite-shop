@@ -52,17 +52,17 @@ export default function Home ({ arr }) {
 
   return (
     <>
-      <HeadPage title='Tienda de hoy Fortnite' />
-      <main className={`${DarkTheme ? 'bg-[#2c2c2c] text-white' : 'bg-white text-[#2c2c2c]'} m-auto w-[95%] max-w-[1440px] flex flex-col justify-center items-center h-auto`}>
+      <HeadPage title='Tienda Fortnite HOY' />
+      <main className='dark:bg-background-black dark:text-gray-100 bg-gray-100 text-background-black m-auto w-[95%] max-w-[1440px] flex flex-col justify-center items-center h-auto'>
         <h1 className='text-lg font-bold mb-4 mt-8'>Tienda de hoy {getDayOnTheWeek()} {new Date().toLocaleDateString()}</h1>
         <CountDown />
         {arr.map((el, index) =>
           <section key={`${index}_${el.section}`} className='pb-4 w-full'>
             <h2 className='text-2xl text-center font-bold mt-4 mb-4'>{el.section}</h2>
-            <div className='text-center mb-4 grid grid-cols-2 md:grid-cols-6 md:grid-auto gap-5 min-h-[190px] items-start justify-center grid-flow-dense m-auto '>
+            <div className='text-center mb-4 grid grid-cols-2 md:grid-cols-6 md:grid-auto gap-5 min-h-[190px] items-start justify-center  grid- m-auto '>
               {el.data.map((child, index) =>
                 <Link
-                  key={`${index}_${child.mainId}`} href={`item/${child.mainId}`} className={`${child.displayName.includes('Lote') || child.displayName.includes('LOTE') || child.displayName.includes('PAQUETE') || child.displayName.includes('Pack') || el.section.includes('Lotes') ? 'col-span-full' : ''} rounded-lg shadow-md w-full auto-rows-fr `}
+                  key={`${index}_${child.mainId}`} href={`item/${child.mainId}`} className={`${child.displayName.includes('Lote') || child.displayName.includes('LOTE') || child.displayName.includes('PAQUETE') || child.displayName.includes('Pack') || el.section.includes('Lotes') ? 'col-span-full md:col-span-2' : ''} rounded-lg shadow-md w-full auto-rows-fr `}
                 >
                   {/* <div> */}
                   <Card section={el.section} image={child.displayAssets[0].full_background} loteImage={child.displayAssets[0].full_background} displayName={child.displayName} />

@@ -3,7 +3,7 @@ import React from 'react'
 
 const Card = ({ section, image, loteImage, displayName }) => {
   return (
-    <div className='cursor-pointer '>
+    <div className='cursor-pointer rounded-md overflow-hidden'>
       {displayName.includes('Lote') || displayName.includes('LOTE') || displayName.includes('PAQUETE') || displayName.includes('Pack') || section.includes('Lotes')
         ? <Image
             priority width={250} height={250} onClick={() => {

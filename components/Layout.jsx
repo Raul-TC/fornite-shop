@@ -2,9 +2,8 @@ import React, { useContext } from 'react'
 import ThemeContext from '../context/Theme'
 
 const Container = ({ children }) => {
-  const { DarkTheme } = useContext(ThemeContext)
   return (
-    <div className={`${DarkTheme ? 'bg-[#2c2c2c] text-white' : 'bg-white text-[#2c2c2c]'} w-full  m-auto h-full flex items-center justify-between`}>
+    <div className='dark:bg-background-black dark:text-gray-100 bg-gray-100 text-background-black w-full  m-auto h-full flex items-center justify-between'>
       {children}
     </div>
   )

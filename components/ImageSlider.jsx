@@ -5,13 +5,15 @@ const ImageSlider = ({ arrayImages }) => {
   const [counter, setCounter] = useState(0)
   const arraySize = arrayImages.length
 
+  let count =  setTimeout(() => {
+    counter === arraySize - 1
+       ? setCounter(0)
+       : setCounter(counter + 1)
+  }, 1500)
   useEffect(() => {
-    setTimeout(() => {
-      counter === arraySize - 1
-        ? setCounter(0)
-        : setCounter(counter + 1)
-    }, 1500)
-  }, [counter, arraySize])
+    
+    return () => clearTimeout(count)
+  }, [counter])
 
   return (
 

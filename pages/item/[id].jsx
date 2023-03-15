@@ -14,7 +14,7 @@ const Page = ({ item }) => {
   const [arrayImages, setArrayImages] = useState([])
   const [reversedHistory, setReversedHistory] = useState([])
 
-  console.info(item)
+  // console.info(item)
   const { query: { id } } = useRouter()
   useEffect(() => {
     const arrImg = []
@@ -51,6 +51,7 @@ const Page = ({ item }) => {
 
     return `${day < 10 ? '0' + day : day}-${month < 10 ? '0' + month : month}-${year}`
   }
+  console.info(item.shopHistory.length)
   return (
     <>
       <HeadPage />
@@ -70,9 +71,9 @@ const Page = ({ item }) => {
           {item.series && <p className='self-start font-bold'>Series:<span className='self-start font-normal'> {item.series.name}</span></p>}
           <div>
 
-            {item.shopHistory?.length >= 1 && <h2 className='text-center font-bold text-2xl'>Apariciones en Tienda</h2>}
+            {item.shopHistory?.length >= 1 && <h1 className='text-center font-bold text-2xl'>Apariciones en Tienda</h1>}
             {
-                          item.shopHistory
+                          item.shopHistory.length >1
                             ? <div className='flex flex-col justify-between items-center w-full flex-wrap mt-4 mb-4'>
                               {/* <div> */}
                               <span className='block text-center'>{getDays(reversedHistory[0])}  </span>
@@ -87,10 +88,17 @@ const Page = ({ item }) => {
                                   item.shopHistory?.length > 3 && <button className='w-[60%] h-8 font-bold block mt-4 mb-4 rounded-md text-center' onClick={() => setShowHistory(!showHistory)}>{showHistory ? 'Ocultar historial' : 'Ver todo el historial'}</button>
                               }
                             </div>
-                            : <p>Agregado el: {getFullDate(item.added.date)}</p>
+                :
+                <>
+                  {item.shopHistory.length === 1 && <h2 className='font bold text-center'>Nuevo en Fortnite  </h2>}
+                <span className='block text-center'>{getDays(reversedHistory[0])}  </span>
+
+                <p className='text-center'> {getFullDate(item.added.date)}</p>
+                </>
             }
           </div>
         </div>
+        
         {item.grants.length > 0 &&
           <>
             <h2 className='text-2xl mt-8 mb-8 font-bold'>Partes del Set {item.set ? item.set.name : item.name}</h2>
