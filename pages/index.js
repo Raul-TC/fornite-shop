@@ -8,20 +8,28 @@ import CountDown from '../components/CountDown'
 import Loader from '../components/Loader'
 
 export default function Home ({ arr }) {
-  const { DarkTheme } = useContext(ThemeContext)
 
   if (!arr) {
     <Loader />
     return
   }
-
-  console.info(arr)
+    const currentDayNow = new Date()
   const getDayOnTheWeek = () => {
-    const day = new Date().getDay()
+    let day = currentDayNow.getDay()
+
+console.info(currentDayNow.getHours(),'horas')
+    if (currentDayNow.getHours() >= 18) {
+      day = day
+    } else {
+      day = day -1 <0 ? day = 6 : day
+    }
+      currentDayNow.setHours(18, 0, 0, 0)
+
 
     let dia
 
-    switch (day-1) {
+    console.info(day,'daaay')
+    switch (day) {
       case 0:
         dia = 'Domingo'
         break
@@ -52,23 +60,34 @@ export default function Home ({ arr }) {
 
   let dayNow = new Date()
 
-  let day = (dayNow.getDate() -1).toString();
+  console.info(dayNow.getSeconds())
+  if (dayNow.getHours() >= 18 ) {
+    dayNow.setDate(dayNow.getDate())
+// window.location.reload()
+  //  dayNow = `${year},${month},${day}`
+  } else {
+    let day = (dayNow.getDate() -1).toString();
   let month = (dayNow.getMonth() +1).toString();
   let year = dayNow.getFullYear().toString();
 
 
-  let afterDate = `${year},${month},${day}`
+   dayNow = `${year},${month},${day}`
 
-  console.info(new Date(afterDate))
+    // deadline.setHours(18, 0, 0, 0)
+   
+}
+
+
+  console.info(dayNow) 
   return (
     <>
       <HeadPage title='Tienda Fortnite HOY' />
       <main className='dark:bg-background-black dark:text-gray-100 bg-gray-100 text-background-black m-auto w-[95%] max-w-[1440px] flex flex-col justify-center items-center h-auto'>
-        <h1 className='text-lg font-bold mb-4 mt-8 text-orange-300'>Tienda del {new Date(afterDate).toLocaleDateString()}</h1>
+        <h1 className='text-lg font-bold mb-4 mt-8'>Tienda del {getDayOnTheWeek()} {new Date(dayNow).toLocaleDateString()}</h1>
         <CountDown />
         {arr.map((el, index) =>
           <section key={`${index}_${el.section}`} className='pb-4 w-full'>
-            <h2 className='text-2xl text-center font-bold mt-4 mb-4'>{el.section}</h2>
+            <h2 className='text-2xl text-center font-bold mt-4 mb-4 lg:text-3xl'>{el.section}</h2>
             <div className='text-center mb-4 grid grid-cols-2 md:grid-cols-6 md:grid-auto gap-5 min-h-[190px] items-start justify-center  grid- m-auto '>
               {el.data.map((child, index) =>
                 <Link

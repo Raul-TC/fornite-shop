@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 
 const ImageSlider = ({ arrayImages }) => {
   const [counter, setCounter] = useState(0)
@@ -10,14 +10,14 @@ const ImageSlider = ({ arrayImages }) => {
        ? setCounter(0)
        : setCounter(counter + 1)
   }, 1500)
-  useEffect(() => {
+  useLayoutEffect(() => {
     
     return () => clearTimeout(count)
   }, [counter])
 
   return (
 
-    <div className='m-auto w-full h-auto'>
+    <div className=' h-auto rounded-md overflow-hidden'>
       {
         arrayImages.map((el, index) =>
           <Image

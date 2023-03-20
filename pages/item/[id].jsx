@@ -14,7 +14,7 @@ const Page = ({ item }) => {
   const [arrayImages, setArrayImages] = useState([])
   const [reversedHistory, setReversedHistory] = useState([])
 
-  // console.info(item)
+  console.info(item)
   const { query: { id } } = useRouter()
   useEffect(() => {
     const arrImg = []
@@ -32,6 +32,19 @@ const Page = ({ item }) => {
     setReversedHistory(clone)
   }, [id])
 
+  const numbers = (number) => {
+    let sum = 0;
+    for (let i = 1; i <= number; i++) {
+      let total = i+sum;
+
+      sum = total;
+
+    }
+    console.info(sum)
+  
+  }
+  numbers(200)
+  
   const getDays = (date) => {
     if (!date) return
     const fechaInicio = new Date().getTime()
@@ -57,24 +70,32 @@ const Page = ({ item }) => {
       <HeadPage />
       <div className={`${roboto.className} flex flex-col  items-center m-auto mt-4 w-[90%] max-w-[1440px] min-h-[calc(100vh-96px)]`}>
         <Link href='/' className='self-start'><IoArrowBackOutline className='text-5xl mb-4' /></Link>
-        <div className='flex flex-col lg:flex-row items-center justify-center w-full'>
-          <div className='md:mr-12 w-full'>
+        {/* <div className='flex flex-col lg:flex-row items-center justify-center w-full'> */}
+        <div className='grid grid-cols-1 lg:grid-cols-2 items-center justify-center w-full rounded-md'>
+          <div className='flex flex-col items-center justify-center'>
             {sizeArray >= 1
               ? <ImageSlider arrayImages={arrayImages} />
-              : <Image src={item.images.full_background} width={350} height={350} alt={item.id} priority className='w-full' />}
+              : <Image src={item.images.full_background} width={150} height={150} alt={item.id} priority className='w-full rounded-md' />}
             {item.description && <q className='py-4 block text-lg font-semibold'>{item.description}</q>}
-            <p className={`${item.rarity.id === 'Common' ? 'bg-green-500 ' : ''} ${item.rarity.id === 'Rare' ? 'bg-blue-500' : ''} ${item.rarity.id === 'Uncommon' && ' bg-gray-500 '} ${item.rarity.id === 'Epic' && ' bg-purple-500'} ${item.rarity.id === 'Legendary' && ' bg-orange-500'} my-4 inline-block text-white font-bold py-1 px-4 rounded-sm`}>
+            <p className={`${item.rarity.id === 'Common' ? 'bg-green-500 ' : ''} ${item.rarity.id === 'Rare' ? 'bg-blue-500' : ''} ${item.rarity.id === 'Uncommon' && ' bg-gray-500 '} ${item.rarity.id === 'Epic' && ' bg-purple-500'} ${item.rarity.id === 'Legendary' && ' bg-orange-500'} my-4 inline-block sel text-white font-bold py-1 px-4 lg:py-3 lg:px-8 rounded-md`}>
               {item.rarity.name}
             </p>
           </div>
-          {item.introduction && <p className=' md:self-center font-bold'> {item.introduction.text}</p>}
-          {item.series && <p className='self-start font-bold'>Series:<span className='self-start font-normal'> {item.series.name}</span></p>}
-          <div>
+          
+          <div className='w-full flex justify-around h-full flex-col items-center'>
+
+            <div>
+          {item.introduction && <p className=' text-center font-bold lg:text-3xl'> {item.introduction.text}</p>}
+          {item.series && <p className=' font-bold lg:text-2xl'>Serie:<span className='self-start font-normal'> {item.series.name}</span></p>}
+            </div>
+          <div className='flex flex-col justify-center items-center'>
 
             {item.shopHistory?.length >= 1 && <h1 className='text-center font-bold text-2xl'>Apariciones en Tienda</h1>}
             {
                           item.shopHistory.length >1
-                            ? <div className='flex flex-col justify-between items-center w-full flex-wrap mt-4 mb-4'>
+                ?
+                <>
+                  <div className={`flex flex-row justify-center items-center flex-wrap m-auto ${showHistory ? 'overflow-y-scroll h-48' : ''} h-auto w-52 lg:w-60`}>
                               {/* <div> */}
                               <span className='block text-center'>{getDays(reversedHistory[0])}  </span>
                               <span className='block text-center'>{getFullDate(reversedHistory[1])}  {getDays(reversedHistory[1])} </span>
@@ -85,9 +106,10 @@ const Page = ({ item }) => {
                                 }
                               {/* </div> */}
                               {
-                                  item.shopHistory?.length > 3 && <button className='w-[60%] h-8 font-bold block mt-4 mb-4 rounded-md text-center' onClick={() => setShowHistory(!showHistory)}>{showHistory ? 'Ocultar historial' : 'Ver todo el historial'}</button>
                               }
                             </div>
+                {item.shopHistory?.length > 3 && <button className=' h-8 font-bold block mt-4 mb-4 rounded-md text-center m-auto' onClick={() => setShowHistory(!showHistory)}>{showHistory ? 'Ocultar historial' : 'Ver todo el historial'}</button>}
+                              </>
                 :
                 <>
                   {item.shopHistory.length === 1 && <h2 className='font bold text-center'>Nuevo en Fortnite  </h2>}
@@ -98,6 +120,7 @@ const Page = ({ item }) => {
             }
           </div>
         </div>
+            </div>
         
         {item.grants.length > 0 &&
           <>

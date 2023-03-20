@@ -44,7 +44,7 @@ const Accesorios = ({ item }) => {
       <div className='flex flex-col  m-auto mt-4 w-[90%] max-w-[1440px] min-h-[calc(100vh-96px)]'>
         <IoArrowBackOutline onClick={() => Router.back()} className='text-5xl mb-4 cursor-pointer' />
         {/* <h1 className={`font-bold text-center text-2xl`}>🚧 Página en Construccion 🚧</h1> */}
-        <div className='flex flex-col md:flex-row  items-start justify-center w-full'>
+        <div className='grid grid-cols-1 lg:grid-cols-2 items-center justify-center w-full'>
           <div className='md:mr-12'>
 
             <Image src={item.images.icon_background} width={350} height={350} alt={item.id} priority />
@@ -53,7 +53,6 @@ const Accesorios = ({ item }) => {
             <p className={`${item.rarity.id === 'Common' ? 'bg-green-500 ' : ''} ${item.rarity.id === 'Rare' ? 'bg-blue-500' : ''} ${item.rarity.id === 'Uncommon' && ' bg-gray-500 '} ${item.rarity.id === 'Epic' && ' bg-purple-500'} ${item.rarity.id === 'Legendary' && ' bg-orange-500'} mt-2 mb-4 inline-block text-white font-bold py-1 px-4 rounded-sm`}>
               {item.rarity.name}
             </p>
-          </div>
           <div className=' mt-4 mb-4 md:mb-8'>
             <p className='text-sm'>Tipo: {item.type.id === 'outfit' ? 'Skin' : item.type.name}</p>
             <p className='text-sm'>Agregado a la Tienda: el {item.added.date} ({getDays(item.added.date)} )</p>
@@ -61,6 +60,9 @@ const Accesorios = ({ item }) => {
             <p className='text-sm'>{item.introduction.text}</p>
 
           </div>
+          </div>
+          <div>
+
           {partOf.length > 1 && <h2>{item.set.partOf} {`(${partOf.length})`}</h2>}
           <div className='grid grid-cols-2 md:grid-cols-4 mt-2 mb-8  gap-4'>
             {partOf.length > 1 && partOf.map((el, index) =>
@@ -69,6 +71,7 @@ const Accesorios = ({ item }) => {
               </Link>
             )}
           </div>
+            </div>
         </div>
       </div>
       {/* } */}

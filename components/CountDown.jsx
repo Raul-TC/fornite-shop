@@ -9,6 +9,7 @@ const CountDown = () => {
 
   if (deadline.getHours() >= 18) {
     deadline.setDate(deadline.getDate() + 1)
+
   }
   deadline.setHours(18, 0, 0, 0)
 
@@ -24,7 +25,7 @@ const CountDown = () => {
   })
 
   return (
-    <div className=' font-bold m-auto text-center text-green-300'>Siguiente Tienda {new Date().toLocaleDateString()}  <span className='block'>Faltan: {hours <10 ? `0${hours} horas, ` : `${hours} horas, `} {minutes < 10 ? `0${minutes} minutos, ` : `${minutes} minutos, `} {seconds < 10 ? `0${seconds} segundos` : `${seconds} segundos`}    </span> </div>)
+    <div className=' font-bold m-auto text-center text-green-600'>Siguiente Tienda {deadline.toLocaleDateString()}  <span className='block'>Faltan: {hours <10 ? `0${hours} horas, ` : `${hours} horas, `} {minutes < 10 ? `0${minutes} minutos, ` : `${minutes} minutos, `} {seconds < 10 ? `0${seconds} segundos` : `${seconds} segundos`}    </span> </div>)
 }
 
 export default CountDown
