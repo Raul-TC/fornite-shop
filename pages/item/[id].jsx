@@ -14,7 +14,6 @@ const Page = ({ item }) => {
   const [arrayImages, setArrayImages] = useState([])
   const [reversedHistory, setReversedHistory] = useState([])
 
-  console.info(item)
   const { query: { id } } = useRouter()
   useEffect(() => {
     const arrImg = []
@@ -36,12 +35,8 @@ const Page = ({ item }) => {
     let sum = 0;
     for (let i = 1; i <= number; i++) {
       let total = i+sum;
-
       sum = total;
-
-    }
-    console.info(sum)
-  
+    }  
   }
   numbers(200)
   
@@ -64,10 +59,10 @@ const Page = ({ item }) => {
 
     return `${day < 10 ? '0' + day : day}-${month < 10 ? '0' + month : month}-${year}`
   }
-  console.info(item.shopHistory.length)
   return (
     <>
-      <HeadPage />
+      <HeadPage title={`Tienda Fortnite HOY | ${item.name}`} />
+
       <div className={`${roboto.className} flex flex-col items-center m-auto mt-4 w-[90%] max-w-[1440px] min-h-[calc(100vh-96px)]`}>
         <Link href='/' className='self-start'><IoArrowBackOutline className='text-5xl mb-4' /></Link>
         {/* <div className='flex flex-col lg:flex-row items-center justify-center w-full'> */}
@@ -81,7 +76,7 @@ const Page = ({ item }) => {
               {item.rarity.name}
             </p>
           </div>        
-          <div className='w-full flex justify-around  flex-col items-center gap-8'>
+          <div className='w-full flex justify-around  flex-col items-center gap-8 self-start'>
 
             <div>
           {item.introduction && <p className=' text-center font-bold lg:text-3xl'> {item.introduction.text}</p>}
@@ -95,7 +90,7 @@ const Page = ({ item }) => {
                           item.shopHistory.length >1
                 ?
                 <>
-                  <div className={`flex flex-row justify-center items-center flex-wrap m-auto ${showHistory ? 'overflow-y-scroll h-48' : ''} h-auto w-52 lg:w-60`}>
+                  <div className={`flex flex-row justify-center items-center flex-wrap m-auto ${showHistory && reversedHistory.length >=7 ? 'overflow-y-scroll h-48 scrollHistory' : ''} h-auto w-52 lg:w-60`}>
                               {/* <div> */}
                               <span className='block text-center'>{getDays(reversedHistory[0])}  </span>
                               <span className='block text-center'>{getFullDate(reversedHistory[1])}  {getDays(reversedHistory[1])} </span>

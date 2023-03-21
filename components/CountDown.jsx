@@ -12,9 +12,7 @@ const CountDown = () => {
     deadline.setDate(deadline.getDate() + 1)
   }
 
-  console.info(deadline,'antes')
   deadline.setHours(18, 0, 0, 0)
-  console.info(deadline,'DESPUES')
 
   const getTime = () => {
     const time = Date.parse(deadline) - Date.now()

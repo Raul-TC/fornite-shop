@@ -32,7 +32,6 @@ export default function Home ({ arr }) {
 }
 
 
-  console.info(dayNow) 
   return (
     <>
       <HeadPage title='Tienda Fortnite HOY' />
@@ -72,12 +71,10 @@ export async function getServerSideProps () {
 
   const data = await fetchShop.json()
 
-  // console.info(data.shop,"full data")
   const dataFiltered = {}
   const categories = [...new Set(data.shop.map((section) => section.section.name))]
   categories.forEach(el => {
     el === null || el === '' || el === false ? dataFiltered.Destacados = [] : dataFiltered[el] = []
-    console.info(el)
   })
 
   await data.shop.forEach(item => {

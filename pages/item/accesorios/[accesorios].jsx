@@ -17,7 +17,6 @@ const Accesorios = ({ item }) => {
   if (!item) {
     return
   }
-  console.info(partOf)
   const getDays = (date) => {
     if (!date) return
     const fechaInicio = new Date().getTime()
@@ -26,11 +25,9 @@ const Accesorios = ({ item }) => {
     const diff = fechaInicio - fechaFin
 
     const tiempo = Math.trunc((diff / (1000 * 60 * 60 * 24)))
-    // console.info(tiempo)
     const daysOrHours = tiempo > 0 ? <span> hace <span className={tiempo >= 365 ? 'text-red-500' : 'text-yellow-500'}>{tiempo}</span> {tiempo === 1 ? 'día' : 'días'}</span> : <span className='text-green-500'>Recientemente</span>
     return daysOrHours
   }
-  // console.info(dataCharacter)
 
   // images.full_background
   // set.name
@@ -38,19 +35,16 @@ const Accesorios = ({ item }) => {
   // styles.image
   return (
     <>
-      <HeadPage title='Accesorios' />
-      {/* {loader && <div className='min-h-screen flex flex-col items-center justify-center w-full'><Loader /></div>} */}
-      {/* {Object.keys(dataCharacter).length > 0 && */}
+      <HeadPage title={`Tienda Fortnite HOY | ${item.name}`} />
       <div className='flex flex-col  m-auto mt-4 w-[90%] max-w-[1440px] min-h-[calc(100vh-96px)]'>
         <IoArrowBackOutline onClick={() => Router.back()} className='text-5xl mb-4 cursor-pointer' />
-        {/* <h1 className={`font-bold text-center text-2xl`}>🚧 Página en Construccion 🚧</h1> */}
         <div className='grid grid-cols-1 lg:grid-cols-2 items-center justify-between gap-5 w-full'>
           <div className=''>
 
             <Image src={item.images.icon_background} width={350} height={350} alt={item.id} priority className='m-auto w-full' />
 
             <q className='block mt-2 mb-2 md:text-xl font-bold'>{item.description}</q>
-            <p className={`${item.rarity.id === 'Common' ? 'bg-green-500 ' : ''} ${item.rarity.id === 'Rare' ? 'bg-blue-500' : ''} ${item.rarity.id === 'Uncommon' && ' bg-gray-500 '} ${item.rarity.id === 'Epic' && ' bg-purple-500'} ${item.rarity.id === 'Legendary' && ' bg-orange-500'} mt-2 mb-4 inline-block text-white font-bold py-1 px-4 rounded-sm`}>
+            <p className={`${item.rarity.id === 'Common' ? 'bg-green-500 ' : ''} ${item.rarity.id === 'Rare' ? 'bg-blue-500' : ''} ${item.rarity.id === 'Uncommon' && ' bg-gray-500 '} ${item.rarity.id === 'Epic' && ' bg-purple-500'} ${item.rarity.id === 'Legendary' && ' bg-orange-500'} mt-2 md:mb-4 inline-block text-white font-bold py-1 px-4 rounded-sm`}>
               {item.rarity.name}
             </p>
 
@@ -60,10 +54,10 @@ const Accesorios = ({ item }) => {
             <div className='flex justify-center items-start h-full'>
 
           <div className=' mt-4 mb-4 md:mb-8'>
-            <p className='text-sm md:text-xl'>Tipo: <span>{item.type.id === 'outfit' ? 'Skin' : item.type.name}</span></p>
-            <p className='text-sm md:text-xl'>Agregado a la Tienda: el {item.added.date} ({getDays(item.added.date)} )</p>
-            <p className='text-sm md:text-xl'>Set: {item.set ? item.set.name : item.name}</p>
-            <p className='text-sm md:text-xl'>{item.introduction.text}</p>
+            <p className='text-base md:text-xl font-bold'>Tipo: <span className='font-normal'>{item.type.id === 'outfit' ? 'Skin' : item.type.name}</span></p>
+            <p className='text-base md:text-xl font-bold'>Agregado a la Tienda: <span className='font-normal'> {item.added.date} (<span className='text-base'>{getDays(item.added.date)}</span> )</span></p>
+            <p className='text-base md:text-xl font-bold'>Set: <span className='font-normal'>{item.set ? item.set.name : item.name}</span></p>
+            <p className='text-base md:text-xl font-bold'>{item.introduction.text}</p>
 
           </div>
           </div>
@@ -97,7 +91,6 @@ export async function getServerSideProps ({ query }) {
     }
   })
 
-  console.info(id)
 
   const data = await fetchShop.json()
 

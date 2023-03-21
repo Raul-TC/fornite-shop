@@ -2,8 +2,7 @@ import React, { useContext } from 'react'
 import ThemeContext from '../context/Theme'
 import Head from 'next/head'
 
-const HeadPage = ({ title = 'Tienda de hoy Fortnite' }) => {
-  const { DarkTheme } = useContext(ThemeContext)
+const HeadPage = ({ title = 'Tienda de hoy Fortnite',darkTheme }) => {
   return (
     <Head>
       <title>{title}</title>
@@ -14,7 +13,7 @@ const HeadPage = ({ title = 'Tienda de hoy Fortnite' }) => {
       <meta property='og:title' content='Fornite Shop Today' />
       <meta property='og:type' content='article' />
       <meta property='og:description' content='Tienda Fornite de Hoy' />
-      <meta name='theme-color' content={DarkTheme ? '#2C2C2C' : '#FFFFFF'} />
+      <meta name='theme-color' content={darkTheme ? '#2C2C2C' : '#FFFFFF'} />
       {/* <link rel='icon' href='./favicon.ico' /> */}
 <link rel="shortcut icon" href="https://cdn.marketing.on.epicgames.com/fortnite/webpack/../favicon.ico" type="image/x-icon"/>
     </Head>

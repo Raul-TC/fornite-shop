@@ -6,6 +6,8 @@ import logoTitle from '../assets/FortniteLogo.svg'
 import logoTitleWhite from '../assets/FortniteLogoWhite.svg'
 import Link from 'next/link'
 import Container from './Layout'
+import Head from 'next/head'
+import HeadPage from './Head'
 
 const Header = () => {
   // const { DarkTheme } = useContext(ThemeContext)
@@ -34,6 +36,8 @@ const Header = () => {
     }
 
   return (
+    <>
+            <HeadPage  darkTheme={darkTheme} />
 
     <header className='dark:bg-background-black dark:text-gray-100 dark:border-white bg-gray-100 border-background-black border-b-2 b h-[80px] w-full '>
       <div className='w-[95%] max-w-[1440px] m-auto flex items-center h-full'>
@@ -48,6 +52,7 @@ const Header = () => {
         </Container>
       </div>
     </header>
+</>
 
   )
 }
