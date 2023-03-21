@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { getDayOnTheWeek } from '../KEYS'
 
 const CountDown = () => {
   const [hours, setHours] = useState(0)
@@ -9,9 +10,11 @@ const CountDown = () => {
 
   if (deadline.getHours() >= 18) {
     deadline.setDate(deadline.getDate() + 1)
-
   }
+
+  console.info(deadline,'antes')
   deadline.setHours(18, 0, 0, 0)
+  console.info(deadline,'DESPUES')
 
   const getTime = () => {
     const time = Date.parse(deadline) - Date.now()
@@ -25,7 +28,33 @@ const CountDown = () => {
   })
 
   return (
-    <div className=' font-bold m-auto text-center text-green-600'>Siguiente Tienda {deadline.toLocaleDateString()}  <span className='block'>Faltan: {hours <10 ? `0${hours} horas, ` : `${hours} horas, `} {minutes < 10 ? `0${minutes} minutos, ` : `${minutes} minutos, `} {seconds < 10 ? `0${seconds} segundos` : `${seconds} segundos`}    </span> </div>)
+    <>
+      <h2 className='lg:text-3xl font-bold'>Siguiente Tienda {getDayOnTheWeek(deadline)} {new Date(deadline).toLocaleDateString()}</h2>
+    <div className=' font-bold m-auto text-center text-green-600 mt-6 flex gap-4 '>
+      <div className='flex flex-col'>
+        <span className='text-xl md:text-3xl lg:text-5xl  text-center  px-2 py-4 '>{hours < 10 ? `0${hours}` : `${hours}`} </span>
+        <span>Horas</span>
+      </div>
+      <div className='flex flex-col '>
+        <span className='text-xl md:text-3xl lg:text-5xl text-center px-2 py-4 '>
+        {minutes < 10 ? `0${minutes}` : `${minutes}`}
+        </span>
+        <span>Minutos</span>
+
+      </div>
+      
+      <div className='flex flex-col'>
+        <span className='text-xl md:text-3xl lg:text-5xl text-center  px-2 py-4 '>
+      {seconds < 10 ? `0${seconds}` : `${seconds}`}   
+</span>
+        <span>Segundos</span>
+      </div>
+      
+      
+    </div >
+    </>
+  )
+  
 }
 
 export default CountDown

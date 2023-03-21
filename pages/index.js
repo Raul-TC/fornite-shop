@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { KEY_LOGIN } from '../KEYS'
+import { getDayOnTheWeek, KEY_LOGIN } from '../KEYS'
 import ThemeContext from '../context/Theme'
 import Card from '../components/Card'
 import Link from 'next/link'
@@ -13,58 +13,12 @@ export default function Home ({ arr }) {
     <Loader />
     return
   }
-    const currentDayNow = new Date()
-  const getDayOnTheWeek = () => {
-    let day = currentDayNow.getDay()
-
-console.info(currentDayNow.getHours(),'horas')
-    if (currentDayNow.getHours() >= 18) {
-      day = day
-    } else {
-      day = day -1 <0 ? day = 6 : day
-    }
-      currentDayNow.setHours(18, 0, 0, 0)
-
-
-    let dia
-
-    console.info(day,'daaay')
-    switch (day) {
-      case 0:
-        dia = 'Domingo'
-        break
-      case 1:
-        dia = 'Lunes'
-        break
-      case 2:
-        dia = 'Martes'
-        break
-      case 3:
-        dia = 'Miércoles'
-        break
-      case 4:
-        dia = 'Jueves'
-        break
-      case 5:
-        dia = 'Viernes'
-        break
-      case 6:
-        dia = 'Sábado'
-        break
-      default:
-        break
-    }
-
-    return dia
-  }
+  
 
   let dayNow = new Date()
 
-  console.info(dayNow.getSeconds())
   if (dayNow.getHours() >= 18 ) {
     dayNow.setDate(dayNow.getDate())
-// window.location.reload()
-  //  dayNow = `${year},${month},${day}`
   } else {
     let day = (dayNow.getDate() -1).toString();
   let month = (dayNow.getMonth() +1).toString();
@@ -83,7 +37,8 @@ console.info(currentDayNow.getHours(),'horas')
     <>
       <HeadPage title='Tienda Fortnite HOY' />
       <main className='dark:bg-background-black dark:text-gray-100 bg-gray-100 text-background-black m-auto w-[95%] max-w-[1440px] flex flex-col justify-center items-center h-auto'>
-        <h1 className='text-lg font-bold mb-4 mt-8'>Tienda del {getDayOnTheWeek()} {new Date(dayNow).toLocaleDateString()}</h1>
+        <h1 className='text-lg font-bold mb-4 mt-8 lg:text-4xl self-start'>Tienda del {getDayOnTheWeek(dayNow)} {new Date(dayNow).toLocaleDateString()}</h1>
+        {/* <h2 className='lg:text-4xl font-bold'>Siguiente Tienda</h2> */}
         <CountDown />
         {arr.map((el, index) =>
           <section key={`${index}_${el.section}`} className='pb-4 w-full'>
