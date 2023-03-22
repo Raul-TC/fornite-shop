@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import HeadPage from '../../components/Head'
 import { KEY_LOGIN } from '../../KEYS'
 import { IoArrowBackOutline } from 'react-icons/io5'
@@ -32,14 +32,14 @@ const Page = ({ item }) => {
   }, [id])
 
   const numbers = (number) => {
-    let sum = 0;
+    let sum = 0
     for (let i = 1; i <= number; i++) {
-      let total = i+sum;
-      sum = total;
-    }  
+      const total = i + sum
+      sum = total
+    }
   }
   numbers(200)
-  
+
   const getDays = (date) => {
     if (!date) return
     const fechaInicio = new Date().getTime()
@@ -56,75 +56,66 @@ const Page = ({ item }) => {
     const day = today.getDate().toString()
     const month = (today.getMonth() + 1).toString()
     const year = today.getFullYear().toString()
-
     return `${day < 10 ? '0' + day : day}-${month < 10 ? '0' + month : month}-${year}`
   }
   return (
     <>
       <HeadPage title={`Tienda Fortnite HOY | ${item.name}`} />
 
-      <div className={`${roboto.className} flex flex-col items-center m-auto mt-4 w-[90%] max-w-[1440px] min-h-[calc(100vh-96px)]`}>
+      <div className={`${roboto.className} flex flex-col items-center m-auto mt-4 w-[90%] max-w-[1440px] min-h-[calc(100vh-96px)] mb-16`}>
         <Link href='/' className='self-start'><IoArrowBackOutline className='text-5xl mb-4' /></Link>
-        {/* <div className='flex flex-col lg:flex-row items-center justify-center w-full'> */}
-        <div className='grid grid-cols-1 lg:grid-cols-2 items-center justify-center w-full rounded-md'>
+        <div className='grid grid-cols-1 items-center justify-center w-full rounded-md md:grid-cols-2'>
           <div className='flex flex-col items-center justify-center'>
             {sizeArray > 1
               ? <ImageSlider arrayImages={arrayImages} />
-              : <Image src={item.images.full_background} width={350} height={350} placeholder='blur' blurDataURL='U1RfLM-:j]-;~pj[j[ayfRfRj[ay~paxfkj[' alt={item.id} priority className='w-full h-full rounded-md' />}
+              : <Image
+                  src={item.images.full_background} width={350} height={350} placeholder='blur' blurDataURL='data:image/webp;base64,UklGRrQCAABXRUJQVlA4WAoAAAAgAAAAiAAAiAAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAAAAAAAAAAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggxgAAAPAMAJ0BKokAiQA+uUacSzyjoqG81zgDkBcJaW74X6wMT3CHQqt6BAOeMFN40V0SYF2CctZqnhjhl7vuFIFIHLJxOTDwxdbVqFgd6HduAWZ9Mm8ph4Yjkfhw33biEg8zeLN08McPFGr1K+2On/HDvAAA/v3cjPaiN0EdFHnuewGq+/rc07Wt09Jn5Gc3bERtstH8Kj2IQeBkidgSXOLco905usNqG9aUrhIZGfFfAoWXAu7lzbhSdYAisrMuxBF8BHJgvgAAAA=='
+                  alt={item.id} priority className='w-full h-full rounded-md'
+                />}
             {item.description && <q className='py-4 block text-lg font-semibold'>{item.description}</q>}
-            <p className={`${item.rarity.id === 'Common' ? 'bg-green-500 ' : ''} ${item.rarity.id === 'Rare' ? 'bg-blue-500' : ''} ${item.rarity.id === 'Uncommon' && ' bg-gray-500 '} ${item.rarity.id === 'Epic' && ' bg-purple-500'} ${item.rarity.id === 'Legendary' && ' bg-orange-500'} my-2 text-white font-bold py-1 px-4 self-start  md:mr-auto lg:py-3 lg:px-8 rounded-md`}>
+            <p className={`${item.rarity.id === 'Common' ? 'bg-green-500 ' : ''} ${item.rarity.id === 'Rare' ? 'bg-blue-500' : ''} ${item.rarity.id === 'Uncommon' && ' bg-gray-500 '} ${item.rarity.id === 'Epic' && ' bg-purple-500'} ${item.rarity.id === 'Legendary' && ' bg-orange-500'} my-2 text-white font-bold py-1 px-4 self-start  md:mr-auto lg:py-3 lg:px-8 rounded-sm`}>
               {item.rarity.name}
             </p>
-          </div>        
-          <div className='w-full flex justify-around  flex-col items-center gap-8 self-start'>
-
+          </div>
+          <div className='w-full flex justify-around flex-col items-center gap-8 self-start'>
             <div>
-          {item.introduction && <p className=' text-center font-bold lg:text-3xl'> {item.introduction.text}</p>}
-          {item.series && <p className=' font-bold lg:text-2xl text-center'>Serie:<span className='self-start font-normal'> {(item.series.name).substring(6)}</span></p>}
+              {item.introduction && <p className=' text-center font-bold md:text-3xl'> {item.introduction.text}</p>}
+              {item.series && <p className=' font-bold text-center md:text-2xl'>Serie:<span className='self-start font-normal capitalize'> {(item.series.name).substring(6)}</span></p>}
             </div>
-          <div className='flex flex-col h-full  justify-center items-start'>
+            <div className='flex flex-col h-full justify-center items-start'>
               <div>
-                
-            {item.shopHistory?.length >= 1 && <h1 className='text-center font-bold text-2xl'>Apariciones en Tienda</h1>}
-            {
-                          item.shopHistory.length >1
-                ?
-                <>
-                  <div className={`flex flex-row justify-center items-center flex-wrap m-auto ${showHistory && reversedHistory.length >=7 ? 'overflow-y-scroll h-48 scrollHistory' : ''} h-auto w-52 lg:w-60`}>
-                              {/* <div> */}
-                              <span className='block text-center'>{getDays(reversedHistory[0])}  </span>
-                              <span className='block text-center'>{getFullDate(reversedHistory[1])}  {getDays(reversedHistory[1])} </span>
-                              <span className='block text-center'>{getFullDate(reversedHistory[2])}  {getDays(reversedHistory[2])} </span>
-                              {
-                                showHistory && reversedHistory.slice(3).map(el => <span className='block text-center' key={el}>{getFullDate(el)} {getDays(el)}</span>)
-
+                {item.shopHistory?.length >= 1 && <h1 className='text-center font-bold text-2xl md:text-3xl'>Apariciones en Tienda</h1>}
+                {
+                          item.shopHistory.length > 1
+                            ? <>
+                              <span className='block text-center md:text-2xl'>{getDays(reversedHistory[0])}  </span>
+                              <div className={`flex flex-row justify-center items-center flex-wrap m-auto ${showHistory && reversedHistory.length >= 7 ? 'overflow-y-scroll h-48 scrollHistory' : ''} h-auto w-52 md:w-[320px]`}>
+                                <span className='block text-center md:text-xl'>{getFullDate(reversedHistory[1])}  {getDays(reversedHistory[1])} </span>
+                                <span className='block text-center md:text-xl'>{getFullDate(reversedHistory[2])}  {getDays(reversedHistory[2])} </span>
+                                {
+                                showHistory && reversedHistory.slice(3).map(el => <span className='block text-center md:text-xl' key={el}>{getFullDate(el)} {getDays(el)}</span>)
                                 }
-                              {/* </div> */}
-                              {
-                              }
-                            </div>
-                {item.shopHistory?.length > 3 && <button className=' h-8 font-bold block mt-4 mb-4 rounded-md text-center m-auto' onClick={() => setShowHistory(!showHistory)}>{showHistory ? 'Ocultar historial' : 'Ver todo el historial'}</button>}
-                              </>
-                :
-                <>
-                  {item.shopHistory.length === 1 && <h2 className='font bold text-center'>Nuevo en Fortnite  </h2>}
-                <span className='block text-center'>{getDays(reversedHistory[0])}  </span>
 
-                {/* <p className='text-center'> {getFullDate(item.added.date)}</p> */}
-                </>
+                              </div>
+                              {item.shopHistory?.length > 3 && <button className=' h-8 font-bold block mt-4 mb-4 rounded-md text-center m-auto md:text-2xl' onClick={() => setShowHistory(!showHistory)}>{showHistory ? 'Ocultar historial' : 'Ver todo el historial'}</button>}
+                            </>
+                            : <>
+                              {item.shopHistory.length === 1 && <h2 className='font bold text-center md:text-2xl'>Nuevo en Fortnite  </h2>}
+                              <span className='block text-center'>{getDays(reversedHistory[0])}  </span>
+                              </>
             }
+              </div>
             </div>
           </div>
         </div>
-            </div>
-        
+
         {item.grants.length > 0 &&
           <>
             <h2 className='text-2xl mt-8 mb-8 font-bold'>Partes del Set {item.set ? item.set.name : item.name}</h2>
-            <div className='grid grid-cols-2 md:grid-cols-5 mt-2 mb-8 gap-4'>
+            <div className='grid grid-cols-2 mt-2 mb-8 gap-4 md:grid-cols-4'>
               {item.grants.map((el, index) =>
                 <Link href={`/item/accesorios/${el.id}`} key={`${el.id}_${index}`}>
-                  <Image priority src={el.images.icon_background} width={250} height={250} alt={el.id} />
+                  <Image priority placeholder='blur' blurDataURL='data:image/webp;base64,UklGRrQCAABXRUJQVlA4WAoAAAAgAAAAiAAAiAAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAAAAAAAAAAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggxgAAAPAMAJ0BKokAiQA+uUacSzyjoqG81zgDkBcJaW74X6wMT3CHQqt6BAOeMFN40V0SYF2CctZqnhjhl7vuFIFIHLJxOTDwxdbVqFgd6HduAWZ9Mm8ph4Yjkfhw33biEg8zeLN08McPFGr1K+2On/HDvAAA/v3cjPaiN0EdFHnuewGq+/rc07Wt09Jn5Gc3bERtstH8Kj2IQeBkidgSXOLco905usNqG9aUrhIZGfFfAoWXAu7lzbhSdYAisrMuxBF8BHJgvgAAAA==' src={el.images.icon_background} width={250} height={250} alt={el.id} />
                 </Link>
               )}
             </div>

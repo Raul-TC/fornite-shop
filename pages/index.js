@@ -1,6 +1,4 @@
-import { useContext } from 'react'
 import { getDayOnTheWeek, KEY_LOGIN } from '../KEYS'
-import ThemeContext from '../context/Theme'
 import Card from '../components/Card'
 import Link from 'next/link'
 import HeadPage from '../components/Head'
@@ -8,48 +6,37 @@ import CountDown from '../components/CountDown'
 import Loader from '../components/Loader'
 
 export default function Home ({ arr }) {
-
   if (!arr) {
     <Loader />
-    return
   }
-  
 
   let dayNow = new Date()
 
-  if (dayNow.getHours() >= 18 ) {
-    dayNow.setDate(dayNow.getDate())
+  if (dayNow.getHours() >= 18) {
+    dayNow.setDate(dayNow.getDate() + 1)
   } else {
-    let day = (dayNow.getDate() -1).toString();
-  let month = (dayNow.getMonth() +1).toString();
-  let year = dayNow.getFullYear().toString();
+    const day = (dayNow.getDate() - 1).toString()
+    const month = (dayNow.getMonth() + 1).toString()
+    const year = dayNow.getFullYear().toString()
 
-
-   dayNow = `${year},${month},${day}`
-
-    // deadline.setHours(18, 0, 0, 0)
-   
-}
-
+    dayNow = `${year},${month},${day}`
+  }
 
   return (
     <>
       <HeadPage title='Tienda Fortnite HOY' />
       <main className='dark:bg-background-black dark:text-gray-100 bg-gray-100 text-background-black m-auto w-[95%] max-w-[1440px] flex flex-col justify-center items-center h-auto'>
-        <h1 className='text-lg font-bold mb-4 mt-8 lg:text-4xl self-start'>Tienda del {getDayOnTheWeek(dayNow)} {new Date(dayNow).toLocaleDateString()}</h1>
-        {/* <h2 className='lg:text-4xl font-bold'>Siguiente Tienda</h2> */}
+        <h1 className='text-lg font-bold mb-4 mt-8 self-start md:text-4xl'>Tienda del {getDayOnTheWeek(dayNow)} {new Date(dayNow).toLocaleDateString()}</h1>
         <CountDown />
         {arr.map((el, index) =>
           <section key={`${index}_${el.section}`} className='pb-4 w-full'>
-            <h2 className='text-2xl text-center font-bold mt-4 mb-4 lg:text-3xl'>{el.section}</h2>
-            <div className='text-center mb-4 grid grid-cols-2 md:grid-cols-6 md:grid-auto gap-5 min-h-[190px] items-start justify-center  grid- m-auto '>
+            <h2 className='text-2xl text-center font-bold mt-4 mb-4 md:text-3xl'>{el.section}</h2>
+            <div className='text-center mb-4 grid grid-cols-2 min-h-[190px] items-start justify-center grid- m-auto md:grid-cols-6 md:grid-auto gap-5'>
               {el.data.map((child, index) =>
                 <Link
                   key={`${index}_${child.mainId}`} href={`item/${child.mainId}`} className={`${child.displayName.includes('Lote') || child.displayName.includes('LOTE') || child.displayName.includes('PAQUETE') || child.displayName.includes('Pack') || el.section.includes('Lotes') ? 'col-span-full md:col-span-2' : ''} rounded-lg shadow-md w-full auto-rows-fr `}
                 >
-                  {/* <div> */}
                   <Card section={el.section} image={child.displayAssets[0].full_background} loteImage={child.displayAssets[0].full_background} displayName={child.displayName} />
-                  {/* </div> */}
                 </Link>
               )}
             </div>
