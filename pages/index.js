@@ -4,33 +4,48 @@ import Link from 'next/link'
 import HeadPage from '../components/Head'
 import CountDown from '../components/CountDown'
 import Loader from '../components/Loader'
+import { useEffect, useState } from 'react'
 
-export default function Home ({ arr }) {
+export default function Home({ arr }) {
+  const [dayFinal, setDayFinal] = useState()
+  const [dayAhora, setDayAhora] = useState()
+  const [month, setMonth] = useState()
+  const [year, setYear] = useState()
   if (!arr) {
     <Loader />
   }
 
-  let dayNow = new Date()
-  const month = (dayNow.getMonth() + 1).toString()
-  let day;
-const year = dayNow.getFullYear().toString()
+ 
+
+  useEffect(() => {
+   let dayNow = new Date()
+   let day;
+    const months = (dayNow.getMonth() + 1).toString()
+    const years = dayNow.getFullYear().toString()
+    setMonth(months)
+    setYear(years)
 if (dayNow.getHours() >= 18) {
   dayNow.setDate(dayNow.getDate())
-   day = (dayNow.getDate()).toString()
+    day = (dayNow.getDate()).toString()
+   setDayFinal(day)
    // dayNow.setHours(18,0,0,0)
-  } else if(dayNow.getHours<=18) {
+  } else if(dayNow.getHours()<=18) {
     dayNow.setDate(dayNow.getDate() -1)
-    day = (dayNow.getDate() -1).toString()
-    
+     day = (dayNow.getDate()).toString()
+       setDayFinal(day)
 
+
+  dayNow = `${year},${month},${dayFinal}`
+  setDayAhora(dayNow)
   }
-  dayNow = `${year},${month},${day}`
-
+  
+}, [dayFinal])
+  
   return (
     <>
       <HeadPage title='Tienda Fortnite HOY' />
       <main className='dark:bg-background-black dark:text-gray-100 bg-gray-100 text-background-black m-auto w-[95%] max-w-[1440px] flex flex-col justify-center items-center h-auto'>
-        <h1 className='text-lg font-bold mb-4 mt-8 self-start md:text-4xl'>Tienda del {getDayOnTheWeek(dayNow)} {new Date(dayNow).toLocaleDateString()}</h1>
+        <h1 className='text-lg font-bold mb-4 mt-8 self-start md:text-4xl'>Tienda del {getDayOnTheWeek(dayAhora)} {new Date(dayAhora).toLocaleDateString()}</h1>
         <CountDown />
         {arr.map((el, index) =>
           <section key={`${index}_${el.section}`} className='pb-4 w-full'>
