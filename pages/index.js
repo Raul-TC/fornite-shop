@@ -11,7 +11,8 @@ export default function Home ({ arr }) {
   }
 
   let dayNow = new Date()
-const month = (dayNow.getMonth() + 1).toString()
+  const month = (dayNow.getMonth() + 1).toString()
+  let day;
 const year = dayNow.getFullYear().toString()
 if (dayNow.getHours() >= 18) {
   dayNow.setDate(dayNow.getDate())
