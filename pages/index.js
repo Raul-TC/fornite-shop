@@ -11,17 +11,19 @@ export default function Home ({ arr }) {
   }
 
   let dayNow = new Date()
-
-  if (dayNow.getHours() >= 18) {
-    dayNow.setDate(dayNow.getDate())
-    // dayNow.setHours(18,0,0,0)
+const month = (dayNow.getMonth() + 1).toString()
+const year = dayNow.getFullYear().toString()
+if (dayNow.getHours() >= 18) {
+  dayNow.setDate(dayNow.getDate())
+   day = (dayNow.getDate()).toString()
+   // dayNow.setHours(18,0,0,0)
   } else if(dayNow.getHours<=18) {
-    const day = (dayNow.getDate() - 1).toString()
-    const month = (dayNow.getMonth() + 1).toString()
-    const year = dayNow.getFullYear().toString()
+    dayNow.setDate(dayNow.getDate() -1)
+    day = (dayNow.getDate() -1).toString()
+    
 
-    dayNow = `${year},${month},${day}`
   }
+  dayNow = `${year},${month},${day}`
 
   return (
     <>
