@@ -26,8 +26,11 @@ export default function Home({ arr }) {
     setYear(years)
 if (dayNow.getHours() >= 18) {
   dayNow.setDate(dayNow.getDate())
+  console.info(dayNow.getDate(),'diaaaa')
     day = (dayNow.getDate()).toString()
-   setDayFinal(day)
+  setDayFinal(day)
+  dayNow = `${year},${month},${dayFinal}`
+  setDayAhora(dayNow)
    // dayNow.setHours(18,0,0,0)
   } else if(dayNow.getHours()<=18) {
     dayNow.setDate(dayNow.getDate() -1)
