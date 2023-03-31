@@ -1,33 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { getDayOnTheWeek } from '../KEYS'
+import React from 'react'
+import { useCountDown } from '../hooks/useCountDown'
+// import { getDayOnTheWeek } from '../KEYS'
 
 const CountDown = () => {
-  const [hours, setHours] = useState(0)
-  const [minutes, setMinutes] = useState(0)
-  const [seconds, setSeconds] = useState(0)
-
-  const deadline = new Date()
-
-  if (deadline.getHours() >= 18) {
-    deadline.setDate(deadline.getDate() + 1)
-  }
-
-  deadline.setHours(18, 0, 0, 0)
-
-  const getTime = () => {
-    const time = Date.parse(deadline) - Date.now()
-    setHours(Math.floor((time / (1000 * 60 * 60)) % 24))
-    setMinutes(Math.floor((time / 1000 / 60) % 60))
-    setSeconds(Math.floor((time / 1000) % 60))
-  }
-
-  useEffect(() => {
-    setInterval(() => getTime(deadline), 1000)
-  })
+  const { hours, minutes, seconds } = useCountDown()
+  // const { getDay, currentDate } = useGetDay(deadline)
 
   return (
     <>
-      <h2 className='font-bold md:text-3xl '>Siguiente Tienda {getDayOnTheWeek(deadline)} {new Date(deadline).toLocaleDateString()}</h2>
+      {/* <h2 className='font-bold md:text-3xl '>Siguiente Tienda {getDay} {currentDate}</h2> */}
       <div className=' font-bold m-auto text-center text-green-600 mt-6 flex gap-4 '>
         <div className='flex flex-col'>
           <span className='text-xl text-center px-2 py-4 md:text-3xl lg:text-5xl'>{hours < 10 ? `0${hours}` : `${hours}`} </span>

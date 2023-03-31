@@ -1,21 +1,23 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import HeadPage from '../../components/Head'
 import { KEY_LOGIN } from '../../KEYS'
 import { IoArrowBackOutline } from 'react-icons/io5'
 import ImageSlider from '../../components/ImageSlider'
 import { Roboto } from '@next/font/google'
+import Error from 'next/error'
 const roboto = Roboto({ subsets: ['latin'], weight: ['400', '700'] })
-const Page = ({ item }) => {
+const Page = ({ item,errorCode }) => {
   const [sizeArray, setSizeArray] = useState(0)
   const [showHistory, setShowHistory] = useState(false)
   const [arrayImages, setArrayImages] = useState([])
   const [reversedHistory, setReversedHistory] = useState([])
 
-  const { query: { id } } = useRouter()
+  // const { query: { id } } = useRouter()
   useEffect(() => {
+    console.info('ejecutnadome')
     const arrImg = []
     item.displayAssets.forEach(el => {
       arrImg.push(el.full_background)
@@ -29,19 +31,16 @@ const Page = ({ item }) => {
     const clone = item.shopHistory.slice(0).reverse()
 
     setReversedHistory(clone)
-  }, [id])
+  }, [])
 
-  const numbers = (number) => {
-    let sum = 0
-    for (let i = 1; i <= number; i++) {
-      const total = i + sum
-      sum = total
-    }
+  if (errorCode) {
+    return <Error statusCode={errorCode} />
   }
-  numbers(200)
-
+  
   const getDays = (date) => {
     if (!date) return
+        console.info('Me ejecuto getDays')
+
     const fechaInicio = new Date().getTime()
     const fechaFin = new Date(date).getTime()
     const diff = (fechaInicio - fechaFin)
@@ -51,6 +50,7 @@ const Page = ({ item }) => {
   }
 
   const getFullDate = (date) => {
+    console.info('Me ejecuto getFullDate')
     const formatedDate = typeof date === 'string' ? date.replace('-', ',') : date
     const today = date ? new Date(formatedDate) : new Date()
     const day = today.getDate().toString()
@@ -65,9 +65,9 @@ const Page = ({ item }) => {
       <div className={`${roboto.className} flex flex-col items-center m-auto mt-4 w-[90%] max-w-[1440px] min-h-[calc(100vh-96px)] mb-16`}>
         <Link href='/' className='self-start'><IoArrowBackOutline className='text-5xl mb-4' /></Link>
         <div className='grid grid-cols-1 items-center justify-center w-full rounded-md md:grid-cols-2'>
-          <div className='flex flex-col items-center justify-center'>
+          <div className='flex flex-col items-center justify-center w-full'>
             {sizeArray > 1
-              ? <ImageSlider arrayImages={arrayImages} />
+              ? <ImageSlider arrayImages={item.displayAssets} />
               : <Image
                   src={item.images.full_background} width={350} height={350} placeholder='blur' blurDataURL='data:image/webp;base64,UklGRrQCAABXRUJQVlA4WAoAAAAgAAAAiAAAiAAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAAAAAAAAAAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggxgAAAPAMAJ0BKokAiQA+uUacSzyjoqG81zgDkBcJaW74X6wMT3CHQqt6BAOeMFN40V0SYF2CctZqnhjhl7vuFIFIHLJxOTDwxdbVqFgd6HduAWZ9Mm8ph4Yjkfhw33biEg8zeLN08McPFGr1K+2On/HDvAAA/v3cjPaiN0EdFHnuewGq+/rc07Wt09Jn5Gc3bERtstH8Kj2IQeBkidgSXOLco905usNqG9aUrhIZGfFfAoWXAu7lzbhSdYAisrMuxBF8BHJgvgAAAA=='
                   alt={item.id} priority className='w-full h-full rounded-md'
@@ -128,21 +128,27 @@ const Page = ({ item }) => {
 
 export default Page
 
-export async function getServerSideProps ({ query }) {
-  const id = query.id
+
+export async function getServerSideProps({query,res}) {
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59'
+  )
+   const id = query.id
   const fetchShop = await fetch(`${`https://fortniteapi.io/v2/items/get?id=${id}&lang=es`}`, {
     headers: {
       'Content-Type': 'application/json',
       Authorization: KEY_LOGIN
     }
   })
+  const errorCode = fetchShop.ok ? false : fetchShop.status
 
   const data = await fetchShop.json()
 
   const { item } = await data
   return {
     props: {
-      item
+      item,errorCode
     }
   }
 }
