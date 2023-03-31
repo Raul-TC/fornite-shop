@@ -1,23 +1,22 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import Router, { useRouter } from 'next/router'
+import Router from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { IoArrowBackOutline } from 'react-icons/io5'
-import HeadPage from '../../../components/Head'
-import Loader from '../../../components/Loader'
-import { KEY_LOGIN } from '../../../KEYS'
+import HeadPage from '../../components/Head'
+import Loader from '../../components/Loader'
+import { KEY_LOGIN } from '../../KEYS'
 
 const Accesorios = ({ item }) => {
   const [partOf, setPartOf] = useState([])
-  const { query: { accesorios } } = useRouter()
+  console.log(item)
 
   useEffect(() => {
-    setPartOf(JSON.parse(localStorage.getItem('grants')))
-  }, [accesorios])
+    setPartOf(item.grants)
+  }, [item.grants])
 
   if (!item) {
-    <Loader />
-    // return
+    return <Loader />
   }
   const getDays = (date) => {
     if (!date) return
@@ -55,9 +54,9 @@ const Accesorios = ({ item }) => {
         </div>
         <div>
 
-          {partOf.length > 1 && <h2>{item.set.partOf} {`(${partOf.length})`}</h2>}
+          {partOf.length >= 1 && <h2>{item.set.partOf} {`(${partOf.length})`}</h2>}
           <div className='grid grid-cols-2 mt-2 mb-8 gap-4 md:grid-cols-4'>
-            {partOf.length > 1 && partOf.map((el, index) =>
+            {partOf.length >= 1 && partOf.map((el, index) =>
               <Link href={`/item/accesorios/${el.id}`} key={`${el.id}_${index}`}>
                 <Image
                   placeholder='blur' blurDataURL='data:image/webp;base64,UklGRrQCAABXRUJQVlA4WAoAAAAgAAAAiAAAiAAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAAAAAAAAAAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggxgAAAPAMAJ0BKokAiQA+uUacSzyjoqG81zgDkBcJaW74X6wMT3CHQqt6BAOeMFN40V0SYF2CctZqnhjhl7vuFIFIHLJxOTDwxdbVqFgd6HduAWZ9Mm8ph4Yjkfhw33biEg8zeLN08McPFGr1K+2On/HDvAAA/v3cjPaiN0EdFHnuewGq+/rc07Wt09Jn5Gc3bERtstH8Kj2IQeBkidgSXOLco905usNqG9aUrhIZGfFfAoWXAu7lzbhSdYAisrMuxBF8BHJgvgAAAA=='

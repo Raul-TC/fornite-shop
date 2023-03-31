@@ -14,12 +14,9 @@ export function useCountDown () {
   deadline.setHours(18, 0, 0, 0)
 
   const getTime = useCallback((deadline) => {
-    // console.info('me ejecuto')
     const time = Date.parse(deadline) - Date.now()
     setHours(Math.floor((time / (1000 * 60 * 60)) % 24))
     setMinutes(Math.floor((time / 1000 / 60) % 60))
-         console.info(time, 'timee')
-
     setSeconds(Math.floor((time / 1000) % 60))
   }, [])
 
@@ -27,7 +24,6 @@ export function useCountDown () {
     const time = setInterval(() => getTime(deadline), 1000)
 
     return () => {
-      // console.info(time, 'timee22')
       clearInterval(time)
     }
   }, [deadline])
