@@ -1,5 +1,5 @@
-import Loader from "../components/Loader";
+import Loader from '../components/Loader'
 
-export default function Custom500() {
-  return <Loader/>
+export default function Custom500 () {
+  return <Loader />
 }
