@@ -72,24 +72,25 @@ const Page = ({ item, errorCode }) => {
                 {
                   !item.shopHistory
                     ? null
-
                     : item.shopHistory.length > 1
-                      ? <>
-                        <span className='block text-center md:text-2xl'>{getDays(reversedHistory[0])}  </span>
-                        <div className={`flex flex-row justify-center items-center flex-wrap m-auto ${showHistory && reversedHistory.length >= 7 ? 'overflow-y-scroll h-48 scrollHistory' : ''} h-auto w-52 md:w-[320px]`}>
-                          <span className='block text-center md:text-xl'>{getFullDate(reversedHistory[1])}  {getDays(reversedHistory[1])} </span>
-                          <span className='block text-center md:text-xl'>{getFullDate(reversedHistory[2])}  {getDays(reversedHistory[2])} </span>
-                          {
+                      ? (
+                        <>
+                          <span className='block text-center md:text-2xl'>{getDays(reversedHistory[0])}  </span>
+                          <div className={`flex flex-row justify-center items-center flex-wrap m-auto ${showHistory && reversedHistory.length >= 7 ? 'overflow-y-scroll h-48 scrollHistory' : ''} h-auto w-52 md:w-[320px]`}>
+                            <span className='block text-center md:text-xl'>{getFullDate(reversedHistory[1])}  {getDays(reversedHistory[1])} </span>
+                            <span className='block text-center md:text-xl'>{getFullDate(reversedHistory[2])}  {getDays(reversedHistory[2])} </span>
+                            {
                                 showHistory && reversedHistory.slice(3).map(el => <span className='block text-center md:text-xl' key={el}>{getFullDate(el)} {getDays(el)}</span>)
-                                }
+                          }
 
-                        </div>
-                        {item.shopHistory?.length > 3 && <button className=' h-8 font-bold block mt-4 mb-4 rounded-md text-center m-auto md:text-2xl' onClick={() => setShowHistory(!showHistory)}>{showHistory ? 'Ocultar historial' : 'Ver todo el historial'}</button>}
-                        </>
-                      : <>
-                        {item.shopHistory.length === 1 && <h2 className='font bold text-center md:text-2xl'>Nuevo en Fortnite  </h2>}
-                        <span className='block text-center'>{getDays(reversedHistory[0])}  </span>
-                        </>
+                          </div><object data='' type='' />
+                          {item.shopHistory?.length > 3 && <button className=' h-8 font-bold block mt-4 mb-4 rounded-md text-center m-auto md:text-2xl' onClick={() => setShowHistory(!showHistory)}>{showHistory ? 'Ocultar historial' : 'Ver todo el historial'}</button>}
+                        </>)
+                      : (
+                        <>
+                          {item.shopHistory.length === 1 && <h2 className='font bold text-center md:text-2xl'>Nuevo en Fortnite  </h2>}
+                          <span className='block text-center'>{getDays(reversedHistory[0])}  </span>
+                        </>)
             }
               </div>
             </div>
