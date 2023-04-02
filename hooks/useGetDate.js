@@ -70,8 +70,9 @@ export function useDates () {
   }
 
   useEffect(() => {
-    const currentTime = new Date()
-    const nextTime = new Date()
+    const currentTime = new Date().toLocaleDateString()
+    const nextTime = new Date().toLocaleDateString()
+    console.log(currentTime.toLocaleDateString())
     setcurrentShop(setDay(currentTime, 'current'))
     setNextShop(setDay(nextTime, 'after'))
   }, [])

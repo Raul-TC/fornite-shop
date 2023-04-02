@@ -7,6 +7,7 @@ import { IoArrowBackOutline } from 'react-icons/io5'
 import ImageSlider from '../components/ImageSlider'
 import { Roboto } from '@next/font/google'
 import Error from 'next/error'
+import { useFormatedDate } from '../hooks/useFormatedDate'
 const roboto = Roboto({ subsets: ['latin'], weight: ['400', '700'] })
 const Page = ({ item, errorCode }) => {
   const [showHistory, setShowHistory] = useState(false)
@@ -18,10 +19,6 @@ const Page = ({ item, errorCode }) => {
     localStorage.setItem('grants', JSON.stringify(item.grants))
     setReversedHistory(clone)
   }, [])
-
-  if (errorCode) {
-    return <Error statusCode={errorCode} />
-  }
 
   const getDays = (date) => {
     if (!date) return
@@ -44,9 +41,18 @@ const Page = ({ item, errorCode }) => {
     const year = today.getFullYear().toString()
     return `${day < 10 ? '0' + day : day}-${month < 10 ? '0' + month : month}-${year}`
   }
+
+  const { days: firstDay } = useFormatedDate(reversedHistory[0])
+  const { finalDate: secondDate } = useFormatedDate(reversedHistory[1])
+
   // console.log(getFullDate(reversedHistory[1]))
   // console.log(getFullDate(reversedHistory[2]))
   // console.log(getFullDate(reversedHistory[3]))
+
+  if (errorCode) {
+    return <Error statusCode={errorCode} />
+  }
+
   return (
     <>
       <HeadPage title={`Tienda Fortnite HOY | ${item.name}`} />
@@ -81,9 +87,9 @@ const Page = ({ item, errorCode }) => {
                     : item.shopHistory.length > 1
                       ? (
                         <>
-                          <span className='block text-center md:text-2xl'>{getDays(reversedHistory[0])}  </span>
+                          <span className='block text-center md:text-2xl'>{firstDay}  </span>
                           <div className={`flex flex-row justify-center items-center flex-wrap m-auto ${showHistory && reversedHistory.length >= 7 ? 'overflow-y-scroll h-48 scrollHistory' : ''} h-auto w-52 md:w-[320px]`}>
-                            <span className='block text-center md:text-xl'>{getFullDate(reversedHistory[1])}  {getDays(reversedHistory[1])} </span>
+                            <span className='block text-center md:text-xl'>{secondDate}  {getDays(reversedHistory[1])} </span>
                             <span className='block text-center md:text-xl'>{getFullDate(reversedHistory[2])}  {getDays(reversedHistory[2])} </span>
                             {
                                 showHistory && reversedHistory.slice(3).map(el => <span className='block text-center md:text-xl' key={el}>{getFullDate(el)} {getDays(el)}</span>)
