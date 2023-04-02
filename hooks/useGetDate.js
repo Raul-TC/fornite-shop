@@ -32,7 +32,7 @@ export function useDates () {
           day = date.getDate().toString()
         } else {
           console.log(' es febrero')
-          // date.setDate(date.getDate() + 1)
+          date.setDate(date.getDate() + 1)
           day = date.getDate().toString()
           console.log(day)
         }

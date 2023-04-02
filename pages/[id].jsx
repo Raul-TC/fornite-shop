@@ -25,15 +25,18 @@ const Page = ({ item, errorCode }) => {
 
   const getDays = (date) => {
     if (!date) return
+    console.log(date)
     const fechaInicio = new Date().getTime()
     const fechaFin = new Date(date).getTime()
     const diff = (fechaInicio - fechaFin)
     const tiempo = Math.abs(Math.trunc((diff / (1000 * 60 * 60 * 24))))
     const daysOrHours = tiempo > 0 ? <span> hace <span className={tiempo >= 365 ? 'text-red-500' : 'text-yellow-500'}>{tiempo}</span> {tiempo === 1 ? 'día' : 'días'}</span> : <span className='text-green-500'>¡En la Tienda Ahora!</span>
+    console.log(daysOrHours)
     return daysOrHours
   }
 
   const getFullDate = (date) => {
+    console.log(date, 'dateee')
     const formatedDate = typeof date === 'string' ? date.replace('-', ',') : date
     const today = date ? new Date(formatedDate) : new Date()
     const day = today.getDate().toString()
@@ -41,6 +44,9 @@ const Page = ({ item, errorCode }) => {
     const year = today.getFullYear().toString()
     return `${day < 10 ? '0' + day : day}-${month < 10 ? '0' + month : month}-${year}`
   }
+  // console.log(getFullDate(reversedHistory[1]))
+  // console.log(getFullDate(reversedHistory[2]))
+  // console.log(getFullDate(reversedHistory[3]))
   return (
     <>
       <HeadPage title={`Tienda Fortnite HOY | ${item.name}`} />
