@@ -59,7 +59,7 @@ export function useDates () {
           month = (month - 1).toString()
         } else {
           console.log('current month')
-          date.setDate(date.getDate())
+          date.setDate(date.getDate() - 1)
           day = (date.getDate()).toString()
           // month = (month - 1).toString()
         }
