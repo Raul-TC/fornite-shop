@@ -1,54 +1,15 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import HeadPage from '../components/Head'
 import { KEY_LOGIN } from '../KEYS'
 import { IoArrowBackOutline } from 'react-icons/io5'
 import ImageSlider from '../components/ImageSlider'
 import { Roboto } from '@next/font/google'
 import Error from 'next/error'
-import { useFormatedDate } from '../hooks/useFormatedDate'
+import History from '../components/History'
 const roboto = Roboto({ subsets: ['latin'], weight: ['400', '700'] })
 const Page = ({ item, errorCode }) => {
-  const [showHistory, setShowHistory] = useState(false)
-  const [reversedHistory, setReversedHistory] = useState([])
-
-  useEffect(() => {
-    const clone = item.shopHistory ? item.shopHistory.slice(0).reverse() : null
-
-    localStorage.setItem('grants', JSON.stringify(item.grants))
-    setReversedHistory(clone)
-  }, [])
-
-  const getDays = (date) => {
-    if (!date) return
-    console.log(date)
-    const fechaInicio = new Date().getTime()
-    const fechaFin = new Date(date).getTime()
-    const diff = (fechaInicio - fechaFin)
-    const tiempo = Math.abs(Math.trunc((diff / (1000 * 60 * 60 * 24))))
-    const daysOrHours = tiempo > 0 ? <span> hace <span className={tiempo >= 365 ? 'text-red-500' : 'text-yellow-500'}>{tiempo}</span> {tiempo === 1 ? 'día' : 'días'}</span> : <span className='text-green-500'>¡En la Tienda Ahora!</span>
-    console.log(daysOrHours)
-    return daysOrHours
-  }
-
-  const getFullDate = (date) => {
-    console.log(date, 'dateee')
-    const formatedDate = typeof date === 'string' ? date.replace('-', ',') : date
-    const today = date ? new Date(formatedDate) : new Date()
-    const day = today.getDate().toString()
-    const month = (today.getMonth() + 1).toString()
-    const year = today.getFullYear().toString()
-    return `${day < 10 ? '0' + day : day}-${month < 10 ? '0' + month : month}-${year}`
-  }
-
-  const { days: firstDay } = useFormatedDate(reversedHistory[0])
-  const { finalDate: secondDate } = useFormatedDate(reversedHistory[1])
-
-  // console.log(getFullDate(reversedHistory[1]))
-  // console.log(getFullDate(reversedHistory[2]))
-  // console.log(getFullDate(reversedHistory[3]))
-
   if (errorCode) {
     return <Error statusCode={errorCode} />
   }
@@ -79,32 +40,7 @@ const Page = ({ item, errorCode }) => {
               {item.series && <p className=' font-bold text-center md:text-2xl'>Serie:<span className='self-start font-normal capitalize'> {(item.series.name).substring(6)}</span></p>}
             </div>
             <div className='flex flex-col h-full justify-center items-start'>
-              <div>
-                {item.shopHistory && item.shopHistory.length >= 1 && <h1 className='text-center font-bold text-2xl md:text-3xl'>Apariciones en Tienda</h1>}
-                {
-                  !item.shopHistory
-                    ? null
-                    : item.shopHistory.length > 1
-                      ? (
-                        <>
-                          <span className='block text-center md:text-2xl'>{firstDay}  </span>
-                          <div className={`flex flex-row justify-center items-center flex-wrap m-auto ${showHistory && reversedHistory.length >= 7 ? 'overflow-y-scroll h-48 scrollHistory' : ''} h-auto w-52 md:w-[320px]`}>
-                            <span className='block text-center md:text-xl'>{secondDate}  {getDays(reversedHistory[1])} </span>
-                            <span className='block text-center md:text-xl'>{getFullDate(reversedHistory[2])}  {getDays(reversedHistory[2])} </span>
-                            {
-                                showHistory && reversedHistory.slice(3).map(el => <span className='block text-center md:text-xl' key={el}>{getFullDate(el)} {getDays(el)}</span>)
-                          }
-
-                          </div><object data='' type='' />
-                          {item.shopHistory?.length > 3 && <button className=' h-8 font-bold block mt-4 mb-4 rounded-md text-center m-auto md:text-2xl' onClick={() => setShowHistory(!showHistory)}>{showHistory ? 'Ocultar historial' : 'Ver todo el historial'}</button>}
-                        </>)
-                      : (
-                        <>
-                          {item.shopHistory.length === 1 && <h2 className='font bold text-center md:text-2xl'>Nuevo en Fortnite  </h2>}
-                          <span className='block text-center'>{getDays(reversedHistory[0])}  </span>
-                        </>)
-            }
-              </div>
+              <History item={item} />
             </div>
           </div>
         </div>

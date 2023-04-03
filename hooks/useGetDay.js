@@ -1,10 +1,13 @@
-import { useMemo } from 'react'
+import { useCallback } from 'react'
 
-export function useGetDay (date) {
-  const currentDayNow = new Date(date)
-  const day = currentDayNow.getDay()
-  const currentDate = currentDayNow.toLocaleDateString()
-  const getDay = useMemo(() => {
+export function useGetDay () {
+  const currentDate = new Date().toLocaleDateString()
+  const getDay = useCallback((dia) => {
+    if (!dia) return '...'
+
+    console.log('me ejecuto')
+    const currentDayNow = new Date(dia)
+    const day = currentDayNow.getDay()
     const days = {
       0: 'Domingo',
       1: 'Lunes',
@@ -15,9 +18,9 @@ export function useGetDay (date) {
       6: 'Sábado'
     }
 
-    if (!date && !currentDate) return 'Cargando...'
+    //   }
     return days[day]
-  }, [date])
+  }, [])
 
   return { getDay, currentDate }
 }
