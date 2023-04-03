@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 
-export function useGetDay () {
-  const currentDate = new Date().toLocaleDateString()
+export function useGetDay (day) {
+  const currentDate = new Date(day).toLocaleDateString()
   const getDay = useCallback((dia) => {
     if (!dia) return '...'
 

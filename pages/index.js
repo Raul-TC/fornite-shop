@@ -15,6 +15,8 @@ export default function Home ({ errorCode, data }) {
   const current = useGetDay(currentShop)
   const after = useGetDay(nextShop)
 
+  console.log(currentShop)
+  console.log(current.getDay(currentShop))
   if (errorCode) {
     return <Error statusCode={errorCode} />
   }

@@ -5,6 +5,7 @@ import { useShowHistory } from '../hooks/useShowHistory'
 const History = ({ item }) => {
   const { showHistory, reversedHistory, handleShowHistory } = useShowHistory(item)
   const { formatedDate, getDays } = useFormatedDate()
+  console.log(item)
   return (
     <div>
       {item.shopHistory && item.shopHistory.length >= 1 && <h1 className='text-center font-bold text-2xl md:text-3xl'>Apariciones en Tienda</h1>}

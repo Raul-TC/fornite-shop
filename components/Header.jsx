@@ -18,7 +18,16 @@ const Header = () => {
         <div className='w-[95%] max-w-[1440px] m-auto flex items-center h-full'>
           <Container>
             <Link href='/'>
-              <Image src={darkTheme ? logoTitleWhite : logoTitle} width={150} height={60} alt={darkTheme ? 'logo_fornite_dark_mode' : 'logo_fornite_light_mode'} priority />
+              <Image
+                className='w-[150px] h-[60px]'
+                src={darkTheme ? logoTitleWhite : logoTitle}
+                width={150}
+                height={60}
+                placeholder='blur'
+                blurDataURL={darkTheme ? `../assets/${logoTitleWhite}` : `../assets/${logoTitle}`}
+                alt={darkTheme ? 'logo_fornite_dark_mode' : 'logo_fornite_light_mode'}
+
+              />
             </Link>
             <ToogleTheme darkTheme={darkTheme} handleTheme={handleTheme} />
           </Container>
