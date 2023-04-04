@@ -6,13 +6,11 @@ export function useShowHistory (item) {
 
   useEffect(() => {
     const clone = item.shopHistory ? item.shopHistory.slice(0).reverse() : null
-    console.info('me ejecuto')
     // localStorage.setItem('grants', JSON.stringify(item.grants))
     setReversedHistory(clone)
   }, [item.shopHistory])
 
   const handleShowHistory = () => {
-    console.log('me hiciste click')
     setShowHistory(!showHistory)
   }
 

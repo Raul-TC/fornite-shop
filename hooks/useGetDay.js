@@ -5,7 +5,6 @@ export function useGetDay (day) {
   const getDay = useCallback((dia) => {
     if (!dia) return '...'
 
-    console.log('me ejecuto')
     const currentDayNow = new Date(dia)
     const day = currentDayNow.getDay()
     const days = {

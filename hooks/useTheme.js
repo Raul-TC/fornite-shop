@@ -13,7 +13,6 @@ export function useTheme () {
   }, [])
 
   const handleTheme = () => {
-    console.info('me ejecuto')
     if (darkTheme) {
       setDarkTheme(false)
       document.documentElement.classList.remove('dark')

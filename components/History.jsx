@@ -1,16 +1,14 @@
 import React from 'react'
 import { useShowHistory } from '../hooks/useShowHistory'
 import useFormatedDate from '../hooks/useFormatedDate'
-import useCountDays from '../hooks/useCountDays'
 // import useCountDays from '../hooks/useCountDays'
 
 const History = ({ item }) => {
   const { showHistory, reversedHistory, handleShowHistory } = useShowHistory(item)
-  const { formatedDate } = useFormatedDate()
-  const { getDays } = useCountDays()
+  const { formatedDate, getDays } = useFormatedDate()
+  // const { getDays } = useCountDays()
   // const firstDate = getDays(reversedHistory[0])
   // const { getDays } = useCountDays()
-  // console.log(getDays(reversedHistory[0]))
   // const getDays =
   //   (date) => {
   //     if (!date) return 'Cargando...'
@@ -35,10 +33,9 @@ const History = ({ item }) => {
                   <span className='block text-center md:text-xl'>{formatedDate(reversedHistory[1])}  {getDays(reversedHistory[1])} </span>
                   <span className='block text-center md:text-xl'>{formatedDate(reversedHistory[2])}  {getDays(reversedHistory[2])} </span>
                   {
-                    showHistory && reversedHistory.slice(3).map(el => {
-                      console.log(el)
-                      return (<span className='block text-center md:text-xl' key={el}>{formatedDate(el)} {getDays(el)}</span>)
-                    })
+                    showHistory && reversedHistory.slice(3).map(el =>
+                      (<span className='block text-center md:text-xl' key={el}>{formatedDate(el)} {getDays(el)}</span>)
+                    )
                   }
                 </div>
                 {item.shopHistory?.length > 3 && <button className=' h-8 font-bold block mt-4 mb-4 rounded-md text-center m-auto md:text-2xl' onClick={handleShowHistory}>{showHistory ? 'Ocultar historial' : 'Ver todo el historial'}</button>}

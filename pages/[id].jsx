@@ -15,7 +15,6 @@ const Page = ({ item, errorCode }) => {
     return <Error statusCode={errorCode} />
   }
 
-  console.log('modal abierto')
   return (
     <>
       <HeadPage title={`Tienda Fortnite HOY | ${item.name}`} />
