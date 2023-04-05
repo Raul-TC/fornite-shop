@@ -26,7 +26,6 @@ const Header = () => {
                 placeholder='blur'
                 blurDataURL={darkTheme ? `../assets/${logoTitleWhite}` : `../assets/${logoTitle}`}
                 alt={darkTheme ? 'logo_fornite_dark_mode' : 'logo_fornite_light_mode'}
-
               />
             </Link>
             <ToogleTheme darkTheme={darkTheme} handleTheme={handleTheme} />

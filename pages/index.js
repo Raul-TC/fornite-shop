@@ -15,8 +15,6 @@ export default function Home ({ errorCode, data }) {
   const current = useGetDay(currentShop)
   const after = useGetDay(nextShop)
 
-  console.log(currentShop)
-  console.log(current.getDay(currentShop))
   if (errorCode) {
     return <Error statusCode={errorCode} />
   }
@@ -38,7 +36,7 @@ export default function Home ({ errorCode, data }) {
                   <Link
                     key={`${index}_${child.mainId}`}
                     href={`${child.mainId}`}
-                    className={`${child.displayName.includes('Lote') || child.displayName.includes('LOTE') || child.displayName.includes('PAQUETE') || child.displayName.includes('Pack') || el.section.includes('Lotes') ? 'col-span-full md:col-span-2' : ''} rounded-lg shadow-md w-full auto-rows-fr `}
+                    className={`${child.displayName.includes('Lote') || child.displayName.includes('LOTE') || child.displayName.includes('PAQUETE') || child.displayName.includes('Pack') || el.section.includes('Lotes') ? 'col-span-full md:col-span-1' : ''} rounded-lg shadow-md w-full auto-rows-fr `}
                   >
                     <Card
                       section={el.section}
