@@ -1,6 +1,7 @@
 import React from 'react'
 import { useShowHistory } from '../hooks/useShowHistory'
 import useFormatedDate from '../hooks/useFormatedDate'
+import Date from './Date'
 
 const History = ({ item }) => {
   const { showHistory, reversedHistory, handleShowHistory } = useShowHistory(item)
@@ -15,13 +16,16 @@ const History = ({ item }) => {
           : item.shopHistory.length > 1
             ? (
               <>
-                <span className='block text-center md:text-2xl'>{getDays(reversedHistory[0])}  </span>
-                <div className={`flex flex-row justify-center items-center flex-wrap m-auto ${showHistory && reversedHistory.length >= 7 ? 'overflow-y-scroll h-48 scrollHistory' : ''} h-auto w-56 md:w-[320px]`}>
-                  <span className='block text-center md:text-xl'>{formatedDate(reversedHistory[1])}  {getDays(reversedHistory[1])} </span>
-                  <span className='block text-center md:text-xl'>{formatedDate(reversedHistory[2])}  {getDays(reversedHistory[2])} </span>
+                <Date days={getDays(reversedHistory[0])} />
+                <div className={`flex flex-row justify-center items-center flex-wrap m-auto text-center ${showHistory && reversedHistory.length >= 7 ? 'overflow-y-scroll h-48 scrollHistory' : ''} h-auto w-[260px] md:w-[280px]`}>
+                  {/* {getDays(reversedHistory[1]) > 1 && getDays(reversedHistory[1]) <= 365 && <span className='block w-full text-center md:text-xl text-orange-400'>{formatedDate(reversedHistory[1])}  {getDays(reversedHistory[1])} </span>} */}
+                  <Date fullDate={formatedDate(reversedHistory[1])} days={getDays(reversedHistory[1])} />
+                  <Date fullDate={formatedDate(reversedHistory[2])} days={getDays(reversedHistory[2])} />
+                  {/* <span className='block text-center md:text-xl'>{formatedDate(reversedHistory[2])}  {getDays(reversedHistory[2])} </span> */}
                   {
                     showHistory && reversedHistory.slice(3).map(el =>
-                      (<span className='block text-center md:text-xl' key={el}>{formatedDate(el)} {getDays(el)}</span>)
+                      // (<span className='block text-center md:text-xl w-full' key={el}>{formatedDate(el)} {getDays(el)}</span>)
+                      <Date key={el} fullDate={el} days={getDays(el)} />
                     )
                   }
                 </div>
