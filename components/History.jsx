@@ -35,7 +35,8 @@ const History = ({ item }) => {
             : (
               <>
                 {item.shopHistory.length === 1 && <h2 className='font bold text-center md:text-2xl'>Nuevo en Fortnite</h2>}
-                <span className='block text-center'>{getDays(reversedHistory[0])}  </span>
+                <Date days={reversedHistory[0]} />
+                {/* <span className='block text-center'>{getDays(reversedHistory[0])}  </span> */}
               </>
               )
     }
