@@ -22,17 +22,19 @@ const History = ({ item }) => {
 
                   {item.shopHistory.length === 2
                     ? <Date fullDate={formatedDate(reversedHistory[1])} days={getDays(reversedHistory[1])} />
-                    : <>
-                      <Date fullDate={formatedDate(reversedHistory[1])} days={getDays(reversedHistory[1])} />
-                      <Date fullDate={formatedDate(reversedHistory[2])} days={getDays(reversedHistory[2])} />
-                      {/* <Date fullDate={formatedDate(reversedHistory[2])} days={getDays(reversedHistory[2])} /> */}
-                      {
+                    : (
+                      <>
+                        <Date fullDate={formatedDate(reversedHistory[1])} days={getDays(reversedHistory[1])} />
+                        <Date fullDate={formatedDate(reversedHistory[2])} days={getDays(reversedHistory[2])} />
+                        {/* <Date fullDate={formatedDate(reversedHistory[2])} days={getDays(reversedHistory[2])} /> */}
+                        {
                        showHistory && reversedHistory.slice(3).map(el =>
                        // (<span className='block text-center md:text-xl w-full' key={el}>{formatedDate(el)} {getDays(el)}</span>)
                          <Date key={el} fullDate={formatedDate(el)} days={getDays(el)} />
                        )
-                    }
-                      </>}
+                      }
+                      </>
+                      )}
                 </div>
                 {item.shopHistory?.length > 3 && <button className=' h-8 font-bold block mt-4 mb-4 rounded-md text-center m-auto md:text-2xl' onClick={handleShowHistory}>{showHistory ? 'Ocultar historial' : 'Ver todo el historial'}</button>}
               </>
