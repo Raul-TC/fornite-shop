@@ -12,16 +12,18 @@ import Error from 'next/error'
 export default function Home ({ errorCode, data }) {
   const { skins } = useGetSkins(data.shop)
   const { currentShop } = useDates()
-  const current = useGetDay(currentShop)
+  const { getDay, currentDate } = useGetDay(currentShop)
 
   if (errorCode) {
     return <Error statusCode={errorCode} />
   }
+
+  const res = currentDate === 'Invalid Date' ? '...' : currentDate
   return (
     <>
       <HeadPage title='Tienda Fortnite HOY' />
       <main className='dark:bg-background-black dark:text-gray-100 bg-gray-100 text-background-black m-auto w-[95%] max-w-[1440px] flex flex-col justify-center items-center h-auto'>
-        <h1 className='text-lg font-bold mb-4 mt-8 self-start md:text-4xl'>Tienda del {current.getDay(currentShop)} {current.currentDate}</h1>
+        <h1 className='text-lg font-bold mb-4 mt-8 self-start md:text-4xl'>Tienda del {getDay(currentShop)} {res}</h1>
         <h1 className='font-bold md:text-3xl'>Siguiente Actualización :</h1>
         <CountDown />
         {skins

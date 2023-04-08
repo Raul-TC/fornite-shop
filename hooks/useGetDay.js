@@ -3,8 +3,6 @@ import { useCallback } from 'react'
 export function useGetDay (day) {
   const currentDate = new Date(day).toLocaleDateString()
   const getDay = useCallback((dia) => {
-    if (!dia) return '...'
-
     const currentDayNow = new Date(dia)
     const day = currentDayNow.getDay()
     const days = {
