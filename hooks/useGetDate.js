@@ -46,11 +46,11 @@ export function useDates () {
           date.setDate(date.getDate() - 1)
           day = (date.getDate()).toString()
           month = (month - 1).toString()
-        } else if ((month === 4 || month === 6 || month === 9 || month === 11) && day === '30') {
+        } else if ((month - 1 === 4 || month - 1 === 6 || month - 1 === 9 || month - 1 === 11) && day === '1') {
           date.setDate(date.getDate() - 1)
           day = (date.getDate()).toString()
           month = (month - 1).toString()
-        } else if (month === 2 && day === '28') {
+        } else if (month - 1 === 2 && day === '1') {
           date.setDate(date.getDate() - 1)
           day = (date.getDate()).toString()
           month = (month - 1).toString()
