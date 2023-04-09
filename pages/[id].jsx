@@ -71,10 +71,10 @@ const Page = ({ item, errorCode }) => {
 export default Page
 
 export async function getServerSideProps ({ query, res }) {
-  res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=10, stale-while-revalidate=59'
-  )
+  // res.setHeader(
+  //   'Cache-Control',
+  //   'public, s-maxage=10, stale-while-revalidate=59'
+  // )
   const id = query.id
   const fetchShop = await fetch(`${`https://fortniteapi.io/v2/items/get?id=${id}&lang=es`}`, {
     headers: {

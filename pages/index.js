@@ -30,17 +30,18 @@ export default function Home ({ errorCode, data }) {
           ? skins.map((el, index) =>
             <section key={`${index}_${el.section}`} className='pb-4 w-full'>
               <h2 className='text-2xl text-center font-bold mt-4 mb-4 md:text-3xl'>{el.section}</h2>
-              <div className='text-center mb-4 grid grid-cols-2 min-h-[190px] items-start justify-center grid- m-auto md:grid-cols-6 md:grid-auto gap-5'>
+              <div className='text-center mb-4 grid grid-cols-2 min-h-[190px] m-auto md:grid-cols-6 gap-2 grid-flow-dense'>
                 {el.data.map((child, index) =>
                   <Link
                     key={`${index}_${child.mainId}`}
                     href={`${child.mainId}`}
-                    className={`${child.displayName.includes('Lote') || child.displayName.includes('LOTE') || child.displayName.includes('PAQUETE') || child.displayName.includes('Pack') || el.section.includes('Lotes') ? 'col-span-full md:col-span-1' : ''} rounded-lg shadow-md w-full auto-rows-fr `}
+                    className={`${child.displayName.includes('Lote') || child.displayName.includes('LOTE') || child.displayName.includes('PAQUETE') || child.displayName.includes('Pack') || el.section.includes('Lotes') ? 'col-span-full lg:col-span-2' : ''} rounded-lg shadow-md self-start w-full cursor-pointer object-cover`}
+
                   >
                     <Card
-                      section={el.section}
+                      el={el}
+                      child={child}
                       image={child.displayAssets[0].full_background}
-                      loteImage={child.displayAssets[0].full_background}
                       displayName={child.displayName}
                     />
                   </Link>
@@ -57,10 +58,10 @@ export default function Home ({ errorCode, data }) {
 }
 
 export async function getServerSideProps ({ res }) {
-  res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=10, stale-while-revalidate=59'
-  )
+  // res.setHeader(
+  //   'Cache-Control',
+  //   'public, s-maxage=10, stale-while-revalidate=59'
+  // )
   const fetchShop = await fetch(`${'https://fortniteapi.io/v2/shop?lang=es'}`, {
     headers: {
       'Content-Type': 'application/json',
