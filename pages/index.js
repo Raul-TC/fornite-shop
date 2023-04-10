@@ -39,8 +39,6 @@ export default function Home ({ errorCode, data }) {
 
                   >
                     <Card
-                      el={el}
-                      child={child}
                       image={child.displayAssets[0].full_background}
                       displayName={child.displayName}
                     />

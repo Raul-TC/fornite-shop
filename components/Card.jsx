@@ -2,7 +2,7 @@ import Image from 'next/image'
 import React from 'react'
 import { blurURL } from '../KEYS'
 
-const Card = ({ el, child, image, displayName }) => {
+const Card = ({ image, displayName }) => {
   return (
     <Image
       width={200}
