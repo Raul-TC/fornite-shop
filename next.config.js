@@ -1,9 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['media.fortniteapi.io'],
-    minimumCacheTTL: 60
-
+    domains: ['media.fortniteapi.io']
   },
   reactStrictMode: true
 }
