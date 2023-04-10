@@ -30,12 +30,12 @@ export default function Home ({ errorCode, data }) {
           ? skins.map((el, index) =>
             <section key={`${index}_${el.section}`} className='pb-4 w-full'>
               <h2 className='text-2xl text-center font-bold mt-4 mb-4 md:text-3xl'>{el.section}</h2>
-              <div className='text-center mb-4 grid grid-cols-2 min-h-[190px] m-auto md:grid-cols-6 gap-2'>
+              <div className='text-center mb-4 grid grid-cols-2 min-h-[190px] md:grid-cols-6 gap-5 md:grid-flow-dense'>
                 {el.data.map((child, index) =>
                   <Link
                     key={`${index}_${child.mainId}`}
                     href={`${child.mainId}`}
-                    className={`${child.displayName.includes('Lote') || child.displayName.includes('LOTE') || child.displayName.includes('PAQUETE') || child.displayName.includes('Pack') || el.section.includes('Lotes') ? 'col-span-full lg:col-span-2' : ''} w-full min-h-min rounded-lg overflow-hidden shadow-md self-start cursor-pointer object-cover`}
+                    className={`${child.displayName.includes('Lote') || child.displayName.includes('LOTE') || child.displayName.includes('PAQUETE') || child.displayName.includes('Pack') || el.section.includes('Lotes') ? 'col-span-full md:col-span-2 md:row-span-2' : ''} w-full min-h-min rounded-lg overflow-hidden shadow-md self-start cursor-pointer object-cover`}
 
                   >
                     <Card

@@ -8,7 +8,7 @@ const Card = ({ image, displayName }) => {
       width={200}
       height={160}
       sizes='(min-width: 768px) 350px,
-              (minx-width: 1200px) 550px'
+              (min-width: 1200px) 550px'
       style={{ height: '100%', width: '100%' }}
       quality={85}
       placeholder='blur'
