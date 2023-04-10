@@ -14,7 +14,7 @@ const HeadPage = ({ title = 'Tienda de hoy Fortnite' }) => {
       <meta property='og:title' content='Tienda de HOY Fortnite' />
       <meta property='og:type' content='article' />
       <meta property='og:description' content='Tienda Actualizada de la tienda de fortnite' />
-      <meta name='theme-color' content={lsTheme === 'true' ? '#2C2C2C' : '#FFFFFF'} />
+      <meta name='theme-color' content={lsTheme === 'true' ? '#1c1c1c' : '#f2f2f2'} />
       <link rel='shortcut icon' href='https://cdn.marketing.on.epicgames.com/fortnite/webpack/../favicon.ico' type='image/x-icon' />
     </Head>
   )

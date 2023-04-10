@@ -18,7 +18,7 @@ const ImageSlider = ({ arrayImages }) => {
             key={`_${index}`}
             src={el.full_background}
             placeholder='blur'
-            className={`w-full mr-3 md:w-[550px] ${counter === index ? '' : 'w-0 h-0'}   `}
+            className={`w-full  md:w-[550px] ${counter === index ? '' : 'w-0 h-0'} m-auto`}
             alt={`_${index}`}
           />
         )

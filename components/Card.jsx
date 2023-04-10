@@ -6,15 +6,13 @@ const Card = ({ image, displayName }) => {
   return (
     <Image
       width={200}
-      height={160}
-      sizes='(min-width: 768px) 350px,
-              (min-width: 1200px) 550px'
-      style={{ height: '100%', width: '100%' }}
-      quality={85}
+      height={200}
+      sizes='(max-width: 390px) 167px,
+              (max-width: 1200px) 550px'
+      className='h-full w-full'
+      quality={100}
       placeholder='blur'
       blurDataURL={blurURL}
-      // className='w-full h-auto cursor-pointer rounded-md overflow-hidden'
-      // className='w-full h-auto cursor-pointer rounded-md overflow-hidden'
       src={image}
       alt={`image_${displayName}`}
     />

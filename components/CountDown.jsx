@@ -3,7 +3,6 @@ import { useCountDown } from '../hooks/useCountDown'
 
 const CountDown = () => {
   const { hours, minutes, seconds } = useCountDown()
-
   return (
     <>
       <div className=' font-bold m-auto text-center text-green-600 mt-6 flex gap-4 '>

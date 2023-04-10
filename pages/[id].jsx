@@ -36,7 +36,7 @@ const Page = ({ item, errorCode }) => {
                   priority
                   className='w-full h-full rounded-md'
                 />}
-            <p className={`${item.rarity.id === 'Common' ? 'bg-green-500 ' : ''} ${item.rarity.id === 'Rare' ? 'bg-blue-500' : ''} ${item.rarity.id === 'Uncommon' && ' bg-gray-500 '} ${item.rarity.id === 'Epic' && ' bg-purple-500'} ${item.rarity.id === 'Legendary' && ' bg-orange-500'} my-2 text-white font-bold py-1 px-4 self-start  md:mr-auto lg:py-3 lg:px-8 rounded-sm`}>
+            <p className={`${item.rarity.id === 'Common' ? 'bg-green-500 ' : ''} ${item.rarity.id === 'Rare' ? 'bg-blue-500' : ''} ${item.rarity.id === 'Uncommon' ? 'bg-gray-500' : ''} ${item.rarity.id === 'Epic' ? ' bg-purple-500' : ''} ${item.rarity.id === 'Legendary' ? ' bg-orange-500' : ''} my-2 text-white font-bold py-1 px-4 self-start md:mr-auto lg:py-3 lg:px-8 rounded-sm md:m-auto`}>
               {item.rarity.name}
             </p>
             {item.description && <q className='py-4 block text-sm md:text-lg font-semibold'>{item.description}</q>}

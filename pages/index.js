@@ -35,8 +35,7 @@ export default function Home ({ errorCode, data }) {
                   <Link
                     key={`${index}_${child.mainId}`}
                     href={`${child.mainId}`}
-                    className={`${child.displayName.includes('Lote') || child.displayName.includes('LOTE') || child.displayName.includes('PAQUETE') || child.displayName.includes('Pack') || el.section.includes('Lotes') ? 'col-span-1 row-span-1 md:col-span-2 md:row-span-2' : ''} w-full min-h-min rounded-lg overflow-hidden shadow-md self-start cursor-pointer object-cover`}
-
+                    className={`${child.displayName.includes('Lote') || child.displayName.includes('LOTE') || child.displayName.includes('PAQUETE') || child.displayName.includes('Pack') || el.section.includes('Lotes') ? 'col-span-1 row-span-1 md:col-span-2 md:row-span-2' : ''} w-full min-h-min rounded-lg overflow-hidden shadow-md self-start cursor-pointer`}
                   >
                     <Card
                       image={child.displayAssets[0].full_background}
@@ -47,7 +46,6 @@ export default function Home ({ errorCode, data }) {
               </div>
             </section>
           )
-
           : <Loader />}
 
       </main>
@@ -55,11 +53,7 @@ export default function Home ({ errorCode, data }) {
   )
 }
 
-export async function getServerSideProps ({ res }) {
-  // res.setHeader(
-  //   'Cache-Control',
-  //   'public, s-maxage=10, stale-while-revalidate=59'
-  // )
+export async function getServerSideProps () {
   const fetchShop = await fetch(`${'https://fortniteapi.io/v2/shop?lang=es'}`, {
     headers: {
       'Content-Type': 'application/json',
