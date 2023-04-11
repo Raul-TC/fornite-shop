@@ -17,7 +17,7 @@ export default function Home ({ errorCode, data }) {
   if (errorCode) {
     return <Error statusCode={errorCode} />
   }
-
+  console.log(skins)
   const res = currentDate === 'Invalid Date' ? '...' : currentDate
   return (
     <>
@@ -31,17 +31,24 @@ export default function Home ({ errorCode, data }) {
             <section key={`${index}_${el.section}`} className='pb-4 w-full'>
               <h2 className='text-2xl text-center font-bold mt-4 mb-4 md:text-3xl'>{el.section}</h2>
               <div className='text-center mb-4 grid grid-cols-2 min-h-[190px] md:grid-cols-6 gap-2 grid-flow-dense'>
-                {el.data.map((child, index) =>
-                  <Link
-                    key={`${index}_${child.mainId}`}
-                    href={`${child.mainId}`}
-                    className={`${child.displayName.includes('Lote') || child.displayName.includes('LOTE') || child.displayName.includes('PAQUETE') || child.displayName.includes('Pack') || el.section.includes('Lotes') ? 'col-span-1 row-span-1 md:col-span-2 md:row-span-2' : ''} w-full min-h-min rounded-lg overflow-hidden shadow-md self-start cursor-pointer`}
-                  >
-                    <Card
-                      image={child.displayAssets[0].full_background}
-                      displayName={child.displayName}
-                    />
-                  </Link>
+                {el.data.map((child, index) => {
+                  return (child.displayAssets[0].full_background
+                    ? (
+
+                      <Link
+                        key={`${index}_${child.mainId}`}
+                        href={`${child.mainId}`}
+                        className={`${child.displayName.includes('Lote') || child.displayName.includes('LOTE') || child.displayName.includes('PAQUETE') || child.displayName.includes('Pack') || el.section.includes('Lotes') ? 'col-span-1 row-span-1 md:col-span-2 md:row-span-2' : ''} w-full min-h-min rounded-lg overflow-hidden shadow-md self-start cursor-pointer`}
+                      >
+                        <Card
+                          image={child.displayAssets[0].full_background}
+                          displayName={child.displayName}
+                        />
+                      </Link>
+
+                      )
+                    : <p>Imagen no disponible</p>)
+                }
                 )}
               </div>
             </section>
